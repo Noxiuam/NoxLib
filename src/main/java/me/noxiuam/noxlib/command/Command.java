@@ -2,7 +2,7 @@ package me.noxiuam.noxlib.command;
 
 import lombok.*;
 
-@Data
+@Data @AllArgsConstructor
 public abstract class Command {
     private String name;
 

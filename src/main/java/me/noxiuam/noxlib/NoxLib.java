@@ -4,7 +4,7 @@ import lombok.*;
 import me.noxiuam.noxlib.command.CommandManager;
 import me.noxiuam.noxlib.util.MessageUtil;
 
-@Data
+@Getter
 public class NoxLib {
     @Getter public static NoxLib instance;
     public MessageUtil messageUtil;
