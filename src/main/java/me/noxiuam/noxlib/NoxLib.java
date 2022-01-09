@@ -7,11 +7,12 @@ import me.noxiuam.noxlib.util.MessageUtil;
 @Getter
 public class NoxLib {
     @Getter public static NoxLib instance;
+
     public MessageUtil messageUtil;
     public CommandManager cmdManager;
 
     private final long startTime;
-
+    
     public NoxLib() {
         this.startTime = System.currentTimeMillis();
         this.messageUtil = new MessageUtil();
