@@ -1,10 +1,8 @@
 package me.noxiuam.noxlib;
 
 import lombok.*;
-import me.noxiuam.noxlib.command.CommandManager;
-import me.noxiuam.noxlib.util.CodecUtil;
-import me.noxiuam.noxlib.util.MessageUtil;
-import me.noxiuam.noxlib.util.ProcessUtil;
+import me.noxiuam.noxlib.command.*;
+import me.noxiuam.noxlib.util.*;
 
 @Getter
 public class NoxLib
@@ -15,6 +13,7 @@ public class NoxLib
     public CommandManager commandManager;
     public ProcessUtil processUtil;
     public CodecUtil codecUtil;
+    public TimeUtil timeUtil;
 
     private final long startTime;
     
@@ -30,6 +29,8 @@ public class NoxLib
         System.out.println("[NoxLib] Created Process Utility!");
         this.codecUtil = new CodecUtil();
         System.out.println("[NoxLib] Created Codec Utility!");
+        this.timeUtil = new TimeUtil();
+        System.out.println("[NoxLib] Created Time Utility!");
 
         System.out.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }
