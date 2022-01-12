@@ -8,8 +8,8 @@ public class AutoModeration
 {
     public List<String> blacklistedWords = new ArrayList<>();
 
-    public AutoModeration()
+    public void register(String word)
     {
-        this.blacklistedWords.add("testgay");
+        this.blacklistedWords.add(word);
     }
 }

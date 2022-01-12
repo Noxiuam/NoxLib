@@ -1,5 +1,6 @@
 package me.noxiuam.noxlib.command;
 
+import me.noxiuam.noxlib.NoxLib;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.*;
@@ -9,25 +10,26 @@ public class CommandManager
 {
     public List<Command> commands = new ArrayList<>();
 
-    public void register(Command cmd)
+    public void register(Command... commands)
     {
-        this.commands.add(cmd);
-    }
-
-    public void unregister(Command cmd)
-    {
-        this.commands.remove(cmd);
+        Collections.addAll(this.commands, commands);
     }
 
     public void handle(GuildMessageReceivedEvent event)
     {
+        if (NoxLib.getInstance().getPrefix() == null) {
+            NoxLib.getInstance().setPrefix("$");
+        }
+
         String msg = event.getMessage().getContentRaw();
         String[] split = msg
-                .replaceFirst("(?i)" + Pattern.quote("$"),"")
+                .replaceFirst("(?i)" + Pattern.quote(NoxLib.getInstance().getPrefix()),"")
                 .split("\\s+");
 
-        for (Command cmd : this.commands){
-            if (cmd != null && msg.startsWith("$" + cmd.getName())) {
+        for (Command cmd : this.commands)
+        {
+            if (cmd != null && msg.startsWith(NoxLib.getInstance().getPrefix() + cmd.getName()))
+            {
                 CommandContext ctx = new CommandContext(event, Arrays.asList(split).subList(1, split.length));
                 cmd.execute(ctx);
             }
