@@ -17,7 +17,6 @@ public class CloseTicket extends Command
     {
         if (!ctx.getChannel().getName().startsWith("ticket-"))
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error closing ticket", "This channel is not a ticket!", NoxLib.getInstance().getDefaultImage()).build()).queue();
             return;
         }
 

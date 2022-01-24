@@ -13,7 +13,6 @@ public class TicketHandler
     {
         if (!NoxLib.getInstance().getOpenTickets().contains(member.getUser().getAsTag()))
         {
-
             NoxLib.getInstance().getOpenTickets().add(member.getUser().getAsTag());
             Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).createTextChannel("ticket-" + member.getUser().getAsTag(), NoxLib.getInstance().getBotJda().getCategoryById(NoxLib.getInstance().getTicketCategoryId()))
                     .queue(ticket -> {
