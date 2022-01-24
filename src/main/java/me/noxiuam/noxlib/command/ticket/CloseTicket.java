@@ -7,7 +7,7 @@ import me.noxiuam.noxlib.command.CommandContext;
 public class CloseTicket extends Command {
 
     public CloseTicket() {
-        super("close", "Closes a ticket.");
+        super("close", "Closes a ticket.", "$close");
     }
 
     @Override

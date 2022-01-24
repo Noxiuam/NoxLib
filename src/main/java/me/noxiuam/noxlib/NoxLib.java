@@ -3,6 +3,10 @@ package me.noxiuam.noxlib;
 import lombok.*;
 import me.noxiuam.noxlib.automod.AutoModeration;
 import me.noxiuam.noxlib.command.*;
+import me.noxiuam.noxlib.command.moderation.Ban;
+import me.noxiuam.noxlib.command.moderation.Kick;
+import me.noxiuam.noxlib.command.moderation.Unban;
+import me.noxiuam.noxlib.command.ticket.AddUser;
 import me.noxiuam.noxlib.command.ticket.CloseTicket;
 import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.ticket.TicketHandler;
@@ -21,9 +25,9 @@ public class NoxLib
 
     // Data
     public List<String> openTickets = new ArrayList<>();
-    @Setter public String prefix, logChannelId, guildId, ticketCategoryId, ticketReactChannelId;
+    @Setter public String prefix, logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId;
     @Setter public Tier tier;
-    public String DBNImage = "https://officialpsds.com/imageview/7v/90/7v90vz_large.png";
+    public String DBNImage = "https://i.imgur.com/3CWMDif.gif"/*https://officialpsds.com/imageview/7v/90/7v90vz_large.png"*/;
     private final long startTime;
 
     // Utilities
@@ -58,7 +62,8 @@ public class NoxLib
         System.out.println("[NoxLib] Created Ticket Handler!");
 
         // Register Built-in Commands
-        this.commandManager.register(new CloseTicket());
+        this.commandManager.register(new CloseTicket(), new AddUser(), new Kick(), new Ban(), new Unban());
+        System.out.println("[NoxLib] Registered Built-In Commands!");
 
         System.out.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }
