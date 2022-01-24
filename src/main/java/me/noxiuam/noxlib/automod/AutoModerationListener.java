@@ -28,7 +28,7 @@ public class AutoModerationListener extends ListenerAdapter
                                 "Blacklisted Word Deleted",
                                 "**Message:** `" + message + "`\n" +
                                         "**Channel:** `" + event.getChannel().getName() + "`\n" + "**Sent by:** `" + event.getMember().getUser().getAsTag() + "`",
-                                NoxLib.getInstance().getDBNImage()).build()
+                                NoxLib.getInstance().getDefaultImage()).build()
                 ).queue();
             }
         }

@@ -27,7 +27,7 @@ public class NoxLib
     public List<String> openTickets = new ArrayList<>();
     @Setter public String prefix, logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId;
     @Setter public Tier tier;
-    public String DBNImage = "https://i.imgur.com/3CWMDif.gif"/*https://officialpsds.com/imageview/7v/90/7v90vz_large.png"*/;
+    @Setter public String defaultImage = "https://i.imgur.com/3CWMDif.gif"/*https://officialpsds.com/imageview/7v/90/7v90vz_large.png"*/;
     private final long startTime;
 
     // Utilities

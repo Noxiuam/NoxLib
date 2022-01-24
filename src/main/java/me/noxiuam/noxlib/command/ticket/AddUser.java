@@ -18,7 +18,7 @@ public class AddUser extends Command
     {
         if (ctx.getArgs().isEmpty())
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Incorrect Usage!", "Usage: " + this.getDescription(), NoxLib.getInstance().DBNImage).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Incorrect Usage!", "Usage: " + this.getDescription(), NoxLib.getInstance().defaultImage).build()).queue();
             return;
         }
 

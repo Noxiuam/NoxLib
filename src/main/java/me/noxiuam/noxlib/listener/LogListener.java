@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class LogListener extends ListenerAdapter
                         "**Member:** " + event.getMember().getAsMention() + "\n"
                                 + "**Channel:** `" + event.getChannelJoined().getName() + "`\n" +
                                 "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
-                        NoxLib.getInstance().getDBNImage()).build()
+                        NoxLib.getInstance().getDefaultImage()).build()
         ).queue();
     }
 
@@ -39,7 +38,7 @@ public class LogListener extends ListenerAdapter
                         "**Member:** " + event.getMember().getAsMention() + "\n" +
                                 "**Channels:** `" + event.getChannelLeft().getName() + "` **->** `" + event.getChannelJoined().getName() + "`\n" +
                                 "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
-                        NoxLib.getInstance().getDBNImage()).build()
+                        NoxLib.getInstance().getDefaultImage()).build()
         ).queue();
     }
 
@@ -52,7 +51,7 @@ public class LogListener extends ListenerAdapter
                         "**Member:** " + event.getMember().getAsMention() + "\n"
                                 + "**Channel:** `" + event.getChannelLeft().getName() + "`\n" +
                                 "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
-                        NoxLib.getInstance().getDBNImage()).build()
+                        NoxLib.getInstance().getDefaultImage()).build()
         ).queue();
     }
 
@@ -62,7 +61,7 @@ public class LogListener extends ListenerAdapter
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Member Banned",
                         "**Member:** " + event.getUser().getAsMention() + "",
-                        NoxLib.getInstance().getDBNImage()).build()
+                        NoxLib.getInstance().getDefaultImage()).build()
         ).queue();
     }
 }
