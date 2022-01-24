@@ -4,7 +4,7 @@ import lombok.*;
 
 
 @Getter @AllArgsConstructor
-public abstract class DiscordGuild {
+public abstract class CustomerGuild {
 
     private String serverName;
     private Tier botTier;
