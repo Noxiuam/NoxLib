@@ -5,12 +5,12 @@ import me.noxiuam.noxlib.command.Command;
 import me.noxiuam.noxlib.command.CommandContext;
 import net.dv8tion.jda.api.Permission;
 
-public class AddUser extends Command
+public class RemoveUser extends Command
 {
 
-    public AddUser()
+    public RemoveUser()
     {
-        super("adduser", "Adds a user to the ticket.", NoxLib.getInstance().getPrefix() + "adduser <user id>");
+        super("removeuser", "Removes a user to the ticket.", NoxLib.getInstance().getPrefix() + "removeuser <user id>");
     }
 
     @Override

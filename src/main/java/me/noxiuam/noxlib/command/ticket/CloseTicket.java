@@ -9,7 +9,7 @@ public class CloseTicket extends Command
 
     public CloseTicket()
     {
-        super("close", "Closes a ticket.", "$close");
+        super("close", "Closes a ticket.", NoxLib.getInstance().getPrefix() + "close");
     }
 
     @Override

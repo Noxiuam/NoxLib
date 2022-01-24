@@ -1,8 +1,7 @@
 package me.noxiuam.noxlib.command.moderation;
 
 import me.noxiuam.noxlib.NoxLib;
-import me.noxiuam.noxlib.command.Command;
-import me.noxiuam.noxlib.command.CommandContext;
+import me.noxiuam.noxlib.command.*;
 import net.dv8tion.jda.api.entities.Member;
 
 public class Ban extends Command
@@ -10,7 +9,7 @@ public class Ban extends Command
 
     public Ban()
     {
-        super("ban", "Bans a member.", "$ban <user> <reason>");
+        super("ban", "Bans a member.", NoxLib.getInstance().getPrefix() + "ban <user> <reason>");
     }
 
     @Override

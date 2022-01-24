@@ -1,12 +1,13 @@
 package me.noxiuam.noxlib.services;
 
 public enum Tier {
-    BRONZE("bronze"),
-    PLATINUM("platinum"),
-    SILVER("silver"),
-    GOLD("gold"),
-    DIAMOND("diamond");
+    BRONZE("bronze", 15),
+    PLATINUM("platinum", 25),
+    SILVER("silver", 35),
+    GOLD("gold", 50),
+    DIAMOND("diamond", 50),
+    LEGENDARY("legendary", 100);
 
-    Tier(String tierName) {
+    Tier(String tierName, int price) {
     }
 }

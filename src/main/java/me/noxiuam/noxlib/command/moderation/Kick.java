@@ -10,7 +10,7 @@ public class Kick extends Command
 
     public Kick()
     {
-        super("kick", "Kicks a member.", "$kick <user> <reason>");
+        super("kick", "Kicks a member.", NoxLib.getInstance().getPrefix() + "kick <user> <reason>");
     }
 
     @Override
