@@ -6,6 +6,7 @@ import me.noxiuam.noxlib.command.*;
 import me.noxiuam.noxlib.command.moderation.Ban;
 import me.noxiuam.noxlib.command.moderation.Kick;
 import me.noxiuam.noxlib.command.moderation.Unban;
+import me.noxiuam.noxlib.command.music.*;
 import me.noxiuam.noxlib.command.ticket.AddUser;
 import me.noxiuam.noxlib.command.ticket.CloseTicket;
 import me.noxiuam.noxlib.command.ticket.RemoveUser;
@@ -26,7 +27,7 @@ public class NoxLib
 
     // Data
     public List<String> openTickets = new ArrayList<>();
-    @Setter public String prefix, logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId;
+    @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId;
     @Setter public Tier tier;
     @Setter public String defaultImage = "https://i.imgur.com/3CWMDif.gif"/*https://officialpsds.com/imageview/7v/90/7v90vz_large.png"*/;
     public String toolImage = "https://www.freeiconspng.com/uploads/tool-icon-12.png";
@@ -70,7 +71,8 @@ public class NoxLib
         System.out.println("[NoxLib] Created Ticket Handler!");
 
         // Register Built-in Commands
-        this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban());
+        this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(),
+                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue());
 
         System.out.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }
