@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class Join extends Command
 {
     public Join()
@@ -30,19 +32,19 @@ public class Join extends Command
             ctx.getChannel().sendMessage(
                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                             "Error Joining Voice Channel",
-                            "I'm already in use! Please wait or get a moderator to move me.", NoxLib.getInstance().getDefaultImage()).build()).queue();
+                            "I'm already in use! Please wait or get a moderator to move me.", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
 
             return;
         }
 
         if (!memberVoiceState.inVoiceChannel())
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You need to be in a Voice Channel first!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         audioManager.openAudioConnection(memberChannel);
-        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberChannel.getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberChannel.getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
 
     }
 }

@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 public class Play extends Command
 {
@@ -29,17 +30,17 @@ public class Play extends Command
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         if (ctx.getArgs().isEmpty()) {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Playing Music", "Usage: " + this.getUsage(), NoxLib.getInstance().getDefaultImage()).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Playing Music", "Usage: " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (!memberVoiceState.inVoiceChannel()) {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You're not in a voice channel, so I have nowhere to connect to!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You're not in a voice channel, so I have nowhere to connect to!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (!selfVoiceState.inVoiceChannel()) {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberVoiceState.getChannel().getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberVoiceState.getChannel().getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
             ctx.getGuild().getAudioManager().openAudioConnection(memberVoiceState.getChannel());
         }
 

@@ -4,6 +4,8 @@ import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;
 import me.noxiuam.noxlib.command.CommandContext;
 
+import java.util.concurrent.TimeUnit;
+
 public class Unban extends Command
 {
     public Unban()
@@ -16,11 +18,11 @@ public class Unban extends Command
     {
         if (ctx.getArgs().isEmpty())
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Unable to unban member", "You did not specify anyone to unban! - " + this.getUsage(), NoxLib.getInstance().defaultImage).build()).queue();
+            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Unable to unban member", "You did not specify anyone to unban! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         ctx.getGuild().unban(ctx.getArgs().get(0)).queue();
-        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Member Unbanned", "<@" + ctx.getArgs().get(0) + "> has been unbanned!", NoxLib.instance.getDefaultImage()).build()).queue();
+        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Member Unbanned", "<@" + ctx.getArgs().get(0) + "> has been unbanned!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
     }
 }

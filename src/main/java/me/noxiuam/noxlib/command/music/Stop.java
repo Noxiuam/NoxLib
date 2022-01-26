@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class Stop extends Command
 {
@@ -31,24 +32,24 @@ public class Stop extends Command
 
         if (!selfVoiceState.inVoiceChannel())
         {
-            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "I am not in a Voice Channel!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "I am not in a Voice Channel!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (!memberVoiceState.inVoiceChannel())
         {
-            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "You need to be in a Voice Channel first!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (!Objects.equals(memberVoiceState.getChannel(), selfVoiceState.getChannel()))
         {
-            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "You need to be in the same Voice Channel as me first!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+            channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Music", "You need to be in the same Voice Channel as me first!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         musicManager.scheduler.player.stopTrack();
         musicManager.scheduler.queue.clear();
-        channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Stopping Music", "Stopped playing music and cleared the queue!", NoxLib.getInstance().getDefaultImage()).build()).queue();
+        channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Stopping Music", "Stopped playing music and cleared the queue!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
     }
 }

@@ -47,13 +47,13 @@ public class PlayerManager
             @Override
             public void trackLoaded(AudioTrack track) {
                 musicManager.scheduler.queue(track);
-                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding track to queue", "Title: " + track.getInfo().title + "\nAuthor: " + track.getInfo().author, NoxLib.getInstance().getDefaultImage()).build()).queue();
+                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding track to queue", "Title: " + track.getInfo().title + "\nAuthor: " + track.getInfo().author, NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 final List<AudioTrack> tracks = playlist.getTracks();
-                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding playlist to queue", playlist.getName() + "\nSongs: " + tracks.size(), NoxLib.getInstance().getDefaultImage()).build()).queue();
+                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding playlist to queue", playlist.getName() + "\nSongs: " + tracks.size(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
 
                 for (final AudioTrack track : tracks) {
                     musicManager.scheduler.queue(track);

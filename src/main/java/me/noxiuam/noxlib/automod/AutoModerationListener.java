@@ -11,7 +11,7 @@ public class AutoModerationListener extends ListenerAdapter
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event)
     {
-        if (event.getAuthor().isBot() || event.isWebhookMessage())
+        if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfig() == null)
         {
             return;
         }
@@ -28,7 +28,7 @@ public class AutoModerationListener extends ListenerAdapter
                                 "Blacklisted Word Deleted",
                                 "**Message:** `" + message + "`\n" +
                                         "**Channel:** `" + event.getChannel().getName() + "`\n" + "**Sent by:** `" + event.getMember().getUser().getAsTag() + "`",
-                                NoxLib.getInstance().getDefaultImage()).build()
+                                NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
                 ).queue();
             }
         }

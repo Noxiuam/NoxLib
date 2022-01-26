@@ -64,7 +64,7 @@ public class MessageUtil
     }
 
     /*
-     * Creates an embed message with a thumbnail, an author, and an image.
+     * Creates an embed message with a thumbnail, an author, and an me.noxiuam.noxlib.image.
      */
     public EmbedBuilder createEmbedWithAuthorThumbnailAndImage(String title, String description, String author, String thumbnail, String image)
     {

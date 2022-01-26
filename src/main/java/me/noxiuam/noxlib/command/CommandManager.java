@@ -17,8 +17,9 @@ public class CommandManager
 
     public void handle(GuildMessageReceivedEvent event)
     {
-        if (NoxLib.getInstance().getPrefix() == null) {
-            NoxLib.getInstance().setPrefix("$");
+        if (NoxLib.getInstance().getConfig() == null)
+        {
+            return;
         }
 
         String msg = event.getMessage().getContentRaw();
