@@ -1,5 +1,7 @@
 package me.noxiuam.noxlib;
 
+import me.noxiuam.noxlib.command.fun.RandomImage;
+import me.noxiuam.noxlib.command.music.Queue;
 import me.noxiuam.noxlib.flow.ConfigThread;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
 import me.noxiuam.noxlib.image.ImageDatabase;
@@ -20,10 +22,7 @@ import me.noxiuam.noxlib.ticket.TicketHandler;
 import me.noxiuam.noxlib.util.*;
 import net.dv8tion.jda.api.JDA;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +48,7 @@ public class NoxLib
     public ProcessUtil processUtil;
     public CodecUtil codecUtil;
     public TimeUtil timeUtil;
+    public MathUtil mathUtil;
 
     // Handlers and Data Holders
     public TicketHandler ticketHandler;
@@ -66,6 +66,7 @@ public class NoxLib
 
         this.tierHandler = new TierHandler();
         System.out.println("[NoxLib Services] Created Tier Handler!");
+
         this.messageUtil = new MessageUtil();
         System.out.println("[NoxLib] Created Message Utility!");
         this.commandManager = new CommandManager();
@@ -76,6 +77,9 @@ public class NoxLib
         System.out.println("[NoxLib] Created Codec Utility!");
         this.timeUtil = new TimeUtil();
         System.out.println("[NoxLib] Created Time Utility!");
+        this.mathUtil = new MathUtil();
+        System.out.println("[NoxLib] Created Math Utility");
+
         this.autoModeration = new AutoModeration();
         System.out.println("[NoxLib] Created Auto Mod!");
         this.ticketHandler = new TicketHandler();
@@ -91,7 +95,7 @@ public class NoxLib
 
         // Register Built-in Commands
         this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(),
-                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue());
+                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage());
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }

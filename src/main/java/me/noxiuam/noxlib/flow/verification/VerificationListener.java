@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Objects;
 
 public class VerificationListener extends ListenerAdapter
 {
@@ -20,7 +21,7 @@ public class VerificationListener extends ListenerAdapter
 
             event.getMessage().delete().queue();
 
-            if (event.getMessage().getContentRaw().equalsIgnoreCase(NoxLib.getInstance().getPrefix() + "setupVerification") && event.getMember().hasPermission(Permission.MANAGE_SERVER))
+            if (event.getMessage().getContentRaw().equalsIgnoreCase(NoxLib.getInstance().getPrefix() + "setupVerification") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.MANAGE_SERVER))
             {
                 event.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Verification", "To enter the server, you're required to verify yourself.\n\nPlease read the rules, when you're done, type `" + NoxLib.getInstance().getVerificationHandler().getVerificationKeyword() + "`.", NoxLib.getInstance().getImageDatabase().getToolImage()).build()).queue();
                 return;
