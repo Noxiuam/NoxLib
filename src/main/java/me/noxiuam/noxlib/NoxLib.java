@@ -1,9 +1,12 @@
 package me.noxiuam.noxlib;
 
 import me.noxiuam.noxlib.command.fun.RandomImage;
+import me.noxiuam.noxlib.command.fun.game.Game;
+import me.noxiuam.noxlib.command.moderation.Purge;
 import me.noxiuam.noxlib.command.music.Queue;
 import me.noxiuam.noxlib.flow.ConfigThread;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
+import me.noxiuam.noxlib.fun.games.GameFramework;
 import me.noxiuam.noxlib.image.ImageDatabase;
 import lombok.*;
 import me.noxiuam.noxlib.automod.AutoModeration;
@@ -59,6 +62,9 @@ public class NoxLib
     // AutoMod
     public AutoModeration autoModeration;
 
+    // Games
+    public GameFramework gameFramework;
+
     public NoxLib()
     {
         instance = this;
@@ -89,13 +95,14 @@ public class NoxLib
         this.imageDatabase = new ImageDatabase();
         System.out.println("[NoxLib] Created Image Database!");
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        ConfigThread sessionPinger = new ConfigThread();
-        scheduler.scheduleAtFixedRate(sessionPinger, 0L, 5L, TimeUnit.SECONDS);
+        this.gameFramework = new GameFramework();
+        System.out.println("[NoxLib] Created Game Framework!");
+
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new ConfigThread(), 0L, 5L, TimeUnit.SECONDS);
 
         // Register Built-in Commands
-        this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(),
-                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage());
+        this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(), new Purge(),
+                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage(), new Game());
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }

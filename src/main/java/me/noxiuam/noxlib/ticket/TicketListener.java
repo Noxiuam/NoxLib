@@ -27,7 +27,6 @@ public class TicketListener extends ListenerAdapter
 
         if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId()) && event.getReactionEmote().getEmote().getId().equalsIgnoreCase(Config.defaultTicketEmoteId))
         {
-
             this.setMemberId(Objects.requireNonNull(event.getMember()).getId());
             NoxLib.getInstance().getTicketHandler().createNewTicket(Objects.requireNonNull(event.getMember()));
             event.getReaction().removeReaction(Objects.requireNonNull(event.getUser())).queue();

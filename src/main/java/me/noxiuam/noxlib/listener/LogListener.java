@@ -57,7 +57,7 @@ public class LogListener extends ListenerAdapter
                             "Message Deleted",
                             "**Author:** " + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getAuthor() + "\n"
                                     + "**Channel:** " + event.getChannel().getAsMention() + "\n"
-                                    + "**Message:** `" + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getMessage() + "`\n"
+                                    + "**Message:** `" + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getMessage().getContentRaw() + "`\n"
                                     + "**Message ID:** `" + event.getMessageIdLong() + "`\n"
                                     + "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                             NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()

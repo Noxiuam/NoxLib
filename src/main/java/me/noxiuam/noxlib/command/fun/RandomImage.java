@@ -12,9 +12,8 @@ public class RandomImage extends Command
     }
 
     @Override
-    public void execute(CommandContext ctx) {
-
-        NoxLib.getInstance().getImageDatabase().createRandomImage(256, 256, ctx.getChannel());
-
+    public void execute(CommandContext ctx)
+    {
+        ctx.getMessage().reply(NoxLib.getInstance().getImageDatabase().createRandomImage(256, 256), "image.png").queue();
     }
 }

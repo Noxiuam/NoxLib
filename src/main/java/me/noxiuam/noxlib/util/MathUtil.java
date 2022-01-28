@@ -8,4 +8,17 @@ public class MathUtil
     {
         return new Random().nextInt(max) + "%";
     }
+
+    public int getRandomNumberBetween(int min, int max)
+    {
+        int value = new Random().nextInt(max);
+
+        if (value > min + 3)
+        {
+            value = this.getRandomNumberBetween(min, max);
+        }
+
+        return value;
+    }
+
 }

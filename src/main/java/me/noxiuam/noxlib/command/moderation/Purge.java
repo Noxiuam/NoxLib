@@ -20,18 +20,18 @@ public class Purge extends Command
     {
         if (ctx.getArgs().isEmpty())
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        if (Integer.parseInt(ctx.getArgs().get(1)) > 100 || Integer.parseInt(ctx.getArgs().get(1)) < 1)
+        if (Integer.parseInt(ctx.getArgs().get(0)) > 100 || Integer.parseInt(ctx.getArgs().get(0)) < 1)
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
+            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
                     m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        int values = Integer.parseInt(ctx.getArgs().get(1));
+        int values = Integer.parseInt(ctx.getArgs().get(0));
         ctx.getMessage().delete().queue();
         List<Message> messages = ctx.getChannel().getHistory().retrievePast(values).complete();
         ctx.getChannel().deleteMessages(messages).queue();

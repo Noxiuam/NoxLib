@@ -1,11 +1,12 @@
 package me.noxiuam.noxlib.flow.moderation;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 @Getter @AllArgsConstructor
 public class DeletedMessage
 {
-    private String message;
-    private String author;
+    private Message message;
+    private User author;
 }

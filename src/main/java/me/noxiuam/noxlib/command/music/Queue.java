@@ -29,7 +29,7 @@ public class Queue extends Command
 
         if (queue.isEmpty())
         {
-            ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error getting the queue", "The queue is currently empty, search for a song to fill it up!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error getting the queue", "The queue is currently empty, search for a song to fill it up!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
@@ -56,7 +56,7 @@ public class Queue extends Command
                     .append("` more...");
         }
 
-        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Current Music Queue", sb.toString(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+        ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Current Music Queue", sb.toString(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
     }
 
     private String formatTime(long timeInMillis)
