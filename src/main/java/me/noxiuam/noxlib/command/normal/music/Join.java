@@ -1,11 +1,11 @@
-package me.noxiuam.noxlib.command.music;
+package me.noxiuam.noxlib.command.normal.music;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;
 import me.noxiuam.noxlib.command.CommandContext;
+import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.util.concurrent.TimeUnit;
@@ -25,11 +25,11 @@ public class Join extends Command
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         final AudioManager audioManager = ctx.getGuild().getAudioManager();
-        final VoiceChannel memberChannel = memberVoiceState.getChannel();
+        final AudioChannel memberChannel = memberVoiceState.getChannel();
 
-        if (selfVoiceState.inVoiceChannel())
+        if (selfVoiceState.inAudioChannel())
         {
-            ctx.getMessage().reply(
+            ctx.getMessage().replyEmbeds(
                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                             "Error Joining Voice Channel",
                             "I'm already in use! Please wait or get a moderator to move me.", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
@@ -37,14 +37,14 @@ public class Join extends Command
             return;
         }
 
-        if (!memberVoiceState.inVoiceChannel())
+        if (!memberVoiceState.inAudioChannel())
         {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         audioManager.openAudioConnection(memberChannel);
-        ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberChannel.getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+        ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberChannel.getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
 
     }
 }

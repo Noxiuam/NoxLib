@@ -1,9 +1,13 @@
 package me.noxiuam.noxlib.util;
 
+import me.noxiuam.noxlib.NoxLib;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.ThreadChannel;
+import net.dv8tion.jda.api.requests.restaction.ThreadChannelAction;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class MessageUtil
 {
@@ -71,6 +75,33 @@ public class MessageUtil
         EmbedBuilder b = new EmbedBuilder();
         b.setTitle(title).setDescription(description).setAuthor(author).setThumbnail(thumbnail).setImage(image);
         return b;
+    }
+
+
+    /*
+     * Creates a thread with a name and title.
+     */
+    public void createThread(String title, String messageId, String channelId)
+    {
+        Objects.requireNonNull(NoxLib.getInstance().getBotJda().getTextChannelById(channelId)).createThreadChannel(title, messageId).setAutoArchiveDuration(ThreadChannel.AutoArchiveDuration.TIME_3_DAYS).queue();
+    }
+
+    /*
+     * Creates a thread with a name, and sends a message in it.
+     */
+    public void createThreadAndSendMessage(String title, String messageId, String channelId, String message)
+    {
+        Objects.requireNonNull(NoxLib.getInstance().getBotJda().getTextChannelById(channelId)).createThreadChannel(title, messageId).setAutoArchiveDuration(ThreadChannel.AutoArchiveDuration.TIME_3_DAYS).queue(m -> {
+            m.sendMessage(message).queue();
+        });
+    }
+
+    /*
+     * Creates a thread with a name, and sends a message in it.
+     */
+    public ThreadChannelAction createThreadAndGet(String title, String messageId, String channelId)
+    {
+        return Objects.requireNonNull(NoxLib.getInstance().getBotJda().getTextChannelById(channelId)).createThreadChannel(title, messageId).setAutoArchiveDuration(ThreadChannel.AutoArchiveDuration.TIME_3_DAYS);
     }
 
 }

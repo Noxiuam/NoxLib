@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.automod;
+package me.noxiuam.noxlib.automation.automod;
 
 import lombok.*;
 import java.util.*;

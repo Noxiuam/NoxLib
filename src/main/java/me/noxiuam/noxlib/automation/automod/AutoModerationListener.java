@@ -1,7 +1,7 @@
-package me.noxiuam.noxlib.automod;
+package me.noxiuam.noxlib.automation.automod;
 
 import me.noxiuam.noxlib.NoxLib;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,8 +9,7 @@ public class AutoModerationListener extends ListenerAdapter
 {
 
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event)
-    {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfig() == null)
         {
             return;
@@ -23,7 +22,7 @@ public class AutoModerationListener extends ListenerAdapter
             if (message.contains(word))
             {
                 event.getMessage().delete().queue();
-                event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId()).sendMessage(
+                event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId()).sendMessageEmbeds(
                         NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                                 "Blacklisted Word Deleted",
                                 "**Message:** `" + message + "`\n" +

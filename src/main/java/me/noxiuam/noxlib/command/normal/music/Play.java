@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.command.music;
+package me.noxiuam.noxlib.command.normal.music;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.audio.PlayerManager;
@@ -7,7 +7,7 @@ import me.noxiuam.noxlib.command.CommandContext;
 
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,24 +23,24 @@ public class Play extends Command
     @Override
     public void execute(CommandContext ctx)
     {
-        final TextChannel channel = ctx.getChannel();
+        final MessageChannel channel = ctx.getChannel();
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         if (ctx.getArgs().isEmpty()) {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Playing Music", "Usage: " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Playing Music", "Usage: " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        if (!memberVoiceState.inVoiceChannel()) {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You're not in a voice channel, so I have nowhere to connect to!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+        if (!memberVoiceState.inAudioChannel()) {
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You're not in a voice channel, so I have nowhere to connect to!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        if (!selfVoiceState.inVoiceChannel()) {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberVoiceState.getChannel().getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+        if (!selfVoiceState.inAudioChannel()) {
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Joining " + memberVoiceState.getChannel().getName(), "Joined the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
             ctx.getGuild().getAudioManager().openAudioConnection(memberVoiceState.getChannel());
         }
 

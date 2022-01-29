@@ -9,11 +9,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import me.noxiuam.noxlib.NoxLib;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PlayerManager
 {
@@ -40,20 +41,20 @@ public class PlayerManager
         });
     }
 
-    public void loadAndPlay(TextChannel channel, String trackUrl) {
-        final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
+    public void loadAndPlay(MessageChannel channel, String trackUrl) {
+        final GuildMusicManager musicManager = this.getMusicManager(Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())));
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
                 musicManager.scheduler.queue(track);
-                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding track to queue", "Title: " + track.getInfo().title + "\nAuthor: " + track.getInfo().author, NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+                channel.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding track to queue", "Title: " + track.getInfo().title + "\nAuthor: " + track.getInfo().author, NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 final List<AudioTrack> tracks = playlist.getTracks();
-                channel.sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding playlist to queue", playlist.getName() + "\nSongs: " + tracks.size(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+                channel.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Adding playlist to queue", playlist.getName() + "\nSongs: " + tracks.size(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
 
                 for (final AudioTrack track : tracks) {
                     musicManager.scheduler.queue(track);

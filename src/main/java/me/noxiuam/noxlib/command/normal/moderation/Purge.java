@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.command.moderation;
+package me.noxiuam.noxlib.command.normal.moderation;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;
@@ -20,13 +20,13 @@ public class Purge extends Command
     {
         if (ctx.getArgs().isEmpty())
         {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (Integer.parseInt(ctx.getArgs().get(0)) > 100 || Integer.parseInt(ctx.getArgs().get(0)) < 1)
         {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
                     m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
@@ -34,8 +34,8 @@ public class Purge extends Command
         int values = Integer.parseInt(ctx.getArgs().get(0));
         ctx.getMessage().delete().queue();
         List<Message> messages = ctx.getChannel().getHistory().retrievePast(values).complete();
-        ctx.getChannel().deleteMessages(messages).queue();
-        ctx.getChannel().sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Messages Successfully Deleted", "✅ Successfully deleted " + ctx.getArgs().get(1) + " messages!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(
+        ctx.getChannel().purgeMessages(messages);
+        ctx.getChannel().sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Messages Successfully Deleted", "✅ Successfully deleted " + ctx.getArgs().get(0) + " messages!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(
                 m -> m.delete().queueAfter(5, TimeUnit.SECONDS)
         );
     }

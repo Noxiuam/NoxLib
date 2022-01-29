@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.command.ticket;
+package me.noxiuam.noxlib.command.normal.ticket;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;

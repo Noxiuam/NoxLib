@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.command.music;
+package me.noxiuam.noxlib.command.normal.music;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.audio.GuildMusicManager;
@@ -29,7 +29,7 @@ public class Queue extends Command
 
         if (queue.isEmpty())
         {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error getting the queue", "The queue is currently empty, search for a song to fill it up!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error getting the queue", "The queue is currently empty, search for a song to fill it up!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
@@ -56,7 +56,7 @@ public class Queue extends Command
                     .append("` more...");
         }
 
-        ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Current Music Queue", sb.toString(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+        ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Current Music Queue", sb.toString(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
     }
 
     private String formatTime(long timeInMillis)

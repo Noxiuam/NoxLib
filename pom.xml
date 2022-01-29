@@ -39,7 +39,6 @@
         </plugins>
     </build>
 
-
     <repositories>
         <repository>
             <id>dv8tion</id>
@@ -140,20 +139,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.duncte123</groupId>
-            <artifactId>botCommons</artifactId>
-            <version>1.0.45</version>
-        </dependency>
-        <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.0_222</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>club.minnced</groupId>
-                    <artifactId>opus-java</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>5.0.0-alpha.4</version>
         </dependency>
     </dependencies>
 </project>

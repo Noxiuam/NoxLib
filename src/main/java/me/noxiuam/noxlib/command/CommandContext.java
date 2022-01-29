@@ -1,18 +1,19 @@
 package me.noxiuam.noxlib.command;
 
-import me.duncte123.botcommons.commands.ICommandContext;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
 public class CommandContext implements ICommandContext
 {
 
-    private final GuildMessageReceivedEvent event;
+    private MessageReceivedEvent event;
+    private SlashCommandEvent slashEvent;
     private final List<String> args;
 
-    public CommandContext(GuildMessageReceivedEvent event, List<String> args)
+    public CommandContext(MessageReceivedEvent event, List<String> args)
     {
         this.event = event;
         this.args = args;
@@ -25,7 +26,7 @@ public class CommandContext implements ICommandContext
     }
 
     @Override
-    public GuildMessageReceivedEvent getEvent()
+    public MessageReceivedEvent getEvent()
     {
         return this.event;
     }
@@ -34,4 +35,5 @@ public class CommandContext implements ICommandContext
     {
         return this.args;
     }
+
 }

@@ -12,6 +12,6 @@ public class WelcomeListener extends ListenerAdapter
     public void onGuildMemberJoin(GuildMemberJoinEvent event)
     {
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getWelcomeChannelId()))
-                .sendMessage(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Welcome to " + event.getGuild().getName() + "!", "Welcome <@" + event.getMember().getId() + ">, enjoy your stay!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+                .sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Welcome to " + event.getGuild().getName() + "!", "Welcome <@" + event.getMember().getId() + ">, enjoy your stay!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
     }
 }

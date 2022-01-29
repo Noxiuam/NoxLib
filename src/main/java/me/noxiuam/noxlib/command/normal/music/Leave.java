@@ -1,11 +1,11 @@
-package me.noxiuam.noxlib.command.music;
+package me.noxiuam.noxlib.command.normal.music;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;
 import me.noxiuam.noxlib.command.CommandContext;
+import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,15 +23,15 @@ public class Leave extends Command
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
-        final VoiceChannel memberChannel = memberVoiceState.getChannel();
+        final AudioChannel memberChannel = memberVoiceState.getChannel();
 
-        if (!selfVoiceState.inVoiceChannel())
+        if (!selfVoiceState.inAudioChannel())
         {
-            ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Leaving " + memberChannel.getName(), "I am not in a Voice Channel, so I can not leave!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Leaving " + memberChannel.getName(), "I am not in a Voice Channel, so I can not leave!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        ctx.getMessage().reply(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Leaving " + memberChannel.getName(), "Left the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+        ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Leaving " + memberChannel.getName(), "Left the Voice Channel successfully!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
         ctx.getGuild().getAudioManager().closeAudioConnection();
     }
 }

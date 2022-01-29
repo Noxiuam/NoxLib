@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.command.fun;
+package me.noxiuam.noxlib.command.normal.fun;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.*;

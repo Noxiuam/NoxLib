@@ -1,23 +1,20 @@
 package me.noxiuam.noxlib;
 
-import me.noxiuam.noxlib.command.fun.RandomImage;
-import me.noxiuam.noxlib.command.fun.game.Game;
-import me.noxiuam.noxlib.command.moderation.Purge;
-import me.noxiuam.noxlib.command.music.Queue;
+import me.noxiuam.noxlib.automation.automod.AutoModeration;
+import me.noxiuam.noxlib.command.normal.fun.RandomImage;
+import me.noxiuam.noxlib.command.normal.fun.game.Game;
+import me.noxiuam.noxlib.command.normal.moderation.*;
+import me.noxiuam.noxlib.command.normal.music.Queue;
+import me.noxiuam.noxlib.command.normal.ticket.*;
+import me.noxiuam.noxlib.command.slash.Test;
+import me.noxiuam.noxlib.flow.BotJDAThread;
 import me.noxiuam.noxlib.flow.ConfigThread;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
 import me.noxiuam.noxlib.fun.games.GameFramework;
 import me.noxiuam.noxlib.image.ImageDatabase;
 import lombok.*;
-import me.noxiuam.noxlib.automod.AutoModeration;
 import me.noxiuam.noxlib.command.*;
-import me.noxiuam.noxlib.command.moderation.Ban;
-import me.noxiuam.noxlib.command.moderation.Kick;
-import me.noxiuam.noxlib.command.moderation.Unban;
-import me.noxiuam.noxlib.command.music.*;
-import me.noxiuam.noxlib.command.ticket.AddUser;
-import me.noxiuam.noxlib.command.ticket.CloseTicket;
-import me.noxiuam.noxlib.command.ticket.RemoveUser;
+import me.noxiuam.noxlib.command.normal.music.*;
 import me.noxiuam.noxlib.config.Config;
 import me.noxiuam.noxlib.flow.VerificationHandler;
 import me.noxiuam.noxlib.services.TierHandler;
@@ -27,7 +24,6 @@ import net.dv8tion.jda.api.JDA;
 
 import java.util.*;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Getter
@@ -99,10 +95,14 @@ public class NoxLib
         System.out.println("[NoxLib] Created Game Framework!");
 
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new ConfigThread(), 0L, 5L, TimeUnit.SECONDS);
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new BotJDAThread(), 0L, 5L, TimeUnit.SECONDS);
 
-        // Register Built-in Commands
+        // Register Normal Commands
         this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(), new Purge(),
                 new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage(), new Game());
+
+        // Register Slash Commands
+        this.commandManager.registerSlashCommands(new Test());
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }
