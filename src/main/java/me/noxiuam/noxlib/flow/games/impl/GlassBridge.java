@@ -1,6 +1,5 @@
 package me.noxiuam.noxlib.flow.games.impl;
 
-import lombok.Getter;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.CommandContext;
 import me.noxiuam.noxlib.flow.games.data.GlassBridgeData;
@@ -12,8 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public class GlassBridge extends Game
 {
-    @Getter public final List<GlassBridgeData> bridgeData = new ArrayList<>();
-
     public GlassBridge()
     {
         super("Glass Bridge [Squid Game Series]", 1);
@@ -23,7 +20,7 @@ public class GlassBridge extends Game
     public void init(CommandContext ctx, Member member)
     {
         GlassBridgeData gameInit = new GlassBridgeData(member.getIdLong(), 10, false, ":ice_cube:" + ":ice_cube:");
-        this.getBridgeData().add(gameInit);
+        NoxLib.getInstance().getGameFramework().getBridgeData().add(gameInit);
         this.ctx = ctx;
         this.run(ctx, member);
     }
@@ -77,6 +74,6 @@ public class GlassBridge extends Game
 
     private GlassBridgeData getGame(long memberId)
     {
-        return this.getBridgeData().stream().filter(game -> game.getMemberId() == memberId).findFirst().orElse(null);
+        return NoxLib.getInstance().getGameFramework().getBridgeData().stream().filter(game -> game.getMemberId() == memberId).findFirst().orElse(null);
     }
 }
