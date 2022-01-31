@@ -11,5 +11,5 @@ A library designed to help me make Discord bots quicker.
 - [ ] Snake (maybe)
 
 ## General Features todo
-- [ ] Report System
-- [ ] Auto Response System
+- [x] Report System
+- [x] Auto Response System
