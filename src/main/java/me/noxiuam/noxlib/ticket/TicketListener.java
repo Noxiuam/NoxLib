@@ -43,7 +43,7 @@ public class TicketListener extends ListenerAdapter
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId())) {
-            event.getMessage().addReaction(NoxLib.getInstance().getBotJda().getEmoteById(Config.defaultTicketEmoteId)).queue();
+            event.getMessage().addReaction(Objects.requireNonNull(NoxLib.getInstance().getBotJda().getEmoteById(Config.defaultTicketEmoteId))).queue();
         }
     }
 }
