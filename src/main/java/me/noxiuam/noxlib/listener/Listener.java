@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.listener;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.automation.autoresponse.AutoReponseMessage;
 import me.noxiuam.noxlib.command.SlashCommand;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -15,10 +16,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Listener extends ListenerAdapter
 {
-
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent event) {
-
+    public void onSlashCommand(@NotNull SlashCommandEvent event)
+    {
         for (SlashCommand cmd : NoxLib.getInstance().getCommandManager().slashCommands)
         {
             if (event.getName().equalsIgnoreCase(cmd.getName()))
@@ -29,8 +29,20 @@ public class Listener extends ListenerAdapter
     }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event)
+    {
         if (event.isWebhookMessage() || event.getMessage().getContentRaw().equalsIgnoreCase("")) return;
+
+        if (NoxLib.getInstance().getConfig().getBotTier().getName().equalsIgnoreCase("silver") || NoxLib.getInstance().getTierHandler().isTopTier(NoxLib.getInstance().getConfig().getBotTier()))
+        {
+            for (AutoReponseMessage msg : NoxLib.getInstance().getAutoReponseHandler().getAutoResponses())
+            {
+                if (msg.getTrigger().equalsIgnoreCase(event.getMessage().getContentRaw()))
+                {
+                    event.getMessage().reply(NoxLib.getInstance().getAutoReponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
+                }
+            }
+        }
 
         NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getMessage(), event.getAuthor()));
         NoxLib.getInstance().getCommandManager().handle(event);

@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib;
 
 import me.noxiuam.noxlib.automation.automod.AutoModeration;
+import me.noxiuam.noxlib.automation.autoresponse.AutoReponseHandler;
 import me.noxiuam.noxlib.command.normal.fun.RandomImage;
 import me.noxiuam.noxlib.command.normal.fun.game.Game;
 import me.noxiuam.noxlib.command.normal.moderation.*;
@@ -38,7 +39,7 @@ public class NoxLib
     public Map<Long, DeletedMessage> messageCache = new HashMap<>();
     private final long startTime;
 
-    @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId;
+    @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId, reportsChannelId;
     public Config config;
 
     // Utilities
@@ -55,7 +56,8 @@ public class NoxLib
     public VerificationHandler verificationHandler;
     public ImageDatabase imageDatabase;
 
-    // AutoMod
+    // Automation
+    public AutoReponseHandler autoReponseHandler;
     public AutoModeration autoModeration;
 
     // Games
@@ -82,8 +84,10 @@ public class NoxLib
         this.mathUtil = new MathUtil();
         System.out.println("[NoxLib] Created Math Utility");
 
+        this.autoReponseHandler = new AutoReponseHandler();
+        System.out.println("[NoxLib] Created Auto Response!");
         this.autoModeration = new AutoModeration();
-        System.out.println("[NoxLib] Created Auto Mod!");
+        System.out.println("[NoxLib] Created Auto Moderation!");
         this.ticketHandler = new TicketHandler();
         System.out.println("[NoxLib] Created Ticket Handler!");
         this.verificationHandler = new VerificationHandler();
@@ -98,8 +102,11 @@ public class NoxLib
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new BotJDAThread(), 0L, 5L, TimeUnit.SECONDS);
 
         // Register Normal Commands
-        this.commandManager.register(new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(), new Purge(),
-                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage(), new Game());
+        this.commandManager.register(
+                new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(), new Purge(),
+                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage(),
+                new Game(), new Report()
+        );
 
         // Register Slash Commands
         this.commandManager.registerSlashCommands(new Test());

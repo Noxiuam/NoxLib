@@ -16,6 +16,16 @@ public class CommandManager
         Collections.addAll(this.commands, commands);
     }
 
+    public void unregister(Command... commands)
+    {
+        this.commands.removeAll(Arrays.asList(commands));
+    }
+
+    public void unregisterSlashCommands(SlashCommand... slashCommands)
+    {
+        this.slashCommands.removeAll(Arrays.asList(slashCommands));
+    }
+
     public void registerSlashCommands(SlashCommand... slashCommands)
     {
         Collections.addAll(this.slashCommands, slashCommands);

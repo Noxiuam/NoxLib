@@ -32,7 +32,6 @@ public class VerificationListener extends ListenerAdapter
                 return;
             }*/
 
-            event.getMessage().delete().queue();
             NoxLib.getInstance().getVerificationHandler().makeVerificationRequest(event.getMessage().getContentRaw(), event.getMember());
         }
     }

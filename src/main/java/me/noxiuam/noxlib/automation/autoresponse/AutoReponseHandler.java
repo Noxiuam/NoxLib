@@ -8,15 +8,21 @@ import java.util.List;
 @Getter
 public class AutoReponseHandler
 {
-    public List<AutoReponseMessage> autoResponses = new ArrayList<>();
+    private final List<AutoReponseMessage> autoResponses = new ArrayList<>();
 
     public void register(String trigger, String response)
     {
-        this.autoResponses.add(new AutoReponseMessage(trigger, response));
+        AutoReponseMessage msg = new AutoReponseMessage(trigger, response);
+        this.autoResponses.add(msg);
     }
 
     public void unregister(String trigger)
     {
         this.autoResponses.removeIf(msg -> msg.getTrigger().equals(trigger));
+    }
+
+    public AutoReponseMessage getAutoResponse(String trigger)
+    {
+        return this.autoResponses.stream().filter(autoResponse -> autoResponse.getTrigger().equalsIgnoreCase(trigger)).findFirst().orElse(null);
     }
 }

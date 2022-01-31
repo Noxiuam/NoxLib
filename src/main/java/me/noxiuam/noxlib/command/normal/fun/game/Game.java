@@ -4,6 +4,8 @@ import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.Command;
 import me.noxiuam.noxlib.command.CommandContext;
 
+import java.util.concurrent.TimeUnit;
+
 public class Game extends Command
 {
     public Game()
@@ -52,7 +54,14 @@ public class Game extends Command
                 ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Starting Game", "You already have a game running!\n\nTo end your current game, type `" + NoxLib.getInstance().getPrefix() + "game stop`", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue();
                 return;
             }
-            NoxLib.getInstance().getGameFramework().startGame(ctx, Integer.parseInt(ctx.getArgs().get(1)));
+            try
+            {
+                NoxLib.getInstance().getGameFramework().startGame(ctx, Integer.parseInt(ctx.getArgs().get(1)));
+            }
+            catch (NumberFormatException e)
+            {
+                ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Starting Game", "Could not find that game, please try again!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(3, TimeUnit.SECONDS));
+            }
         }
     }
 }

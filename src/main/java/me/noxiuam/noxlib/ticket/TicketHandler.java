@@ -18,10 +18,6 @@ public class TicketHandler
             NoxLib.getInstance().getOpenTickets().add(member.getUser().getAsTag());
             Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).createTextChannel("ticket-" + member.getUser().getAsTag(), NoxLib.getInstance().getBotJda().getCategoryById(NoxLib.getInstance().getTicketCategoryId()))
                     .queue(ticket -> {
-                        if (NoxLib.getInstance().getTierHandler().isTopTier(NoxLib.getInstance().getConfig().getBotTier()))
-                        {
-                            ticket.createPermissionOverride(Objects.requireNonNull(NoxLib.getInstance().getBotJda().getRoleById(NoxLib.getInstance().getVerificationHandler().verifiedRoleId))).setDeny(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND).queue();
-                        }
                         ticket.createPermissionOverride(member).setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND).queue();
                         ticket.sendMessageEmbeds(
                                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(Config.defaultTicketTitle,

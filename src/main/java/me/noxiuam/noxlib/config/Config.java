@@ -64,4 +64,21 @@ public class Config
         NoxLib.getInstance().getVerificationHandler().setVerificationChannelId(verificationChannelId);
         System.out.println("[NoxLib] Tier has been set to " + tier.getName().substring(0, 1).toUpperCase() + tier.getName().substring(1) + ", this is a high tier!");
     }
+
+    // Gold with Reports
+    public Config(Tier tier, String prefix, String logChannelId, String guildId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId, String reportsChannelId)
+    {
+        if (!NoxLib.getInstance().getTierHandler().isTopTier(tier)) return;
+        this.setBotTier(tier);
+        NoxLib.getInstance().setPrefix(prefix);
+        NoxLib.getInstance().setLogChannelId(logChannelId);
+        NoxLib.getInstance().setGuildId(guildId);
+        NoxLib.getInstance().setTicketCategoryId(ticketCategoryId);
+        NoxLib.getInstance().setTicketReactChannelId(ticketReactChannelId);
+        NoxLib.getInstance().getVerificationHandler().setVerificationKeyword(verificationKeyword);
+        NoxLib.getInstance().getVerificationHandler().setVerifiedRoleId(verifiedRoleId);
+        NoxLib.getInstance().getVerificationHandler().setVerificationChannelId(verificationChannelId);
+        NoxLib.getInstance().setReportsChannelId(reportsChannelId);
+        System.out.println("[NoxLib] Tier has been set to " + tier.getName().substring(0, 1).toUpperCase() + tier.getName().substring(1) + ", this is a high tier with reports!");
+    }
 }
