@@ -2,7 +2,7 @@
 A library designed to help me make Discord bots quicker.
 
 ## Todo
-- [ ] Games
+- [x] Games
 - [ ] Random Google image search
 
 ## Games
@@ -10,5 +10,6 @@ A library designed to help me make Discord bots quicker.
 - [ ] Tic Tac Toe
 - [ ] Snake (maybe)
 
-## Games todo
-- [ ] Make the bot load the game and then edit the message to be the game's board.
+## General Features todo
+- [ ] Report System
+- [ ] Auto Response System
