@@ -1,9 +1,10 @@
-package me.noxiuam.noxlib.fun.games;
+package me.noxiuam.noxlib.flow.games;
 
 import lombok.Getter;
 import me.noxiuam.noxlib.command.CommandContext;
-import me.noxiuam.noxlib.fun.games.impl.GlassBridge;
+import me.noxiuam.noxlib.flow.games.impl.GlassBridge;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.*;
 
@@ -11,22 +12,16 @@ import java.util.*;
 public class GameFramework
 {
     public final List<Game> games = new ArrayList<>();
-    public final Map<Long, Game> runningGames = new HashMap<>();
+    public final Map<Member, Message> runningGames = new HashMap<>();
 
     public GameFramework()
     {
         this.games.add(new GlassBridge());
     }
 
-    public void createMultiplayerGame(int gameId, Member... members)
-    {
-        // Connect them to our server and handle gameplay there.
-    }
-
     public void startGame(CommandContext ctx, int id)
     {
-        this.runningGames.put(ctx.getMember().getIdLong(), this.getGameById(id));
-        this.getGameById(id).init(ctx);
+        this.getGameById(id).init(ctx, ctx.getMember());
     }
 
     public Game getGameById(int id)

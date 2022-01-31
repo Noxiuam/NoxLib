@@ -23,7 +23,7 @@ public class Game extends Command
         if (ctx.getArgs().get(0).equalsIgnoreCase("list"))
         {
             StringBuilder sb = new StringBuilder();
-            for (me.noxiuam.noxlib.fun.games.Game game : NoxLib.getInstance().getGameFramework().getGames())
+            for (me.noxiuam.noxlib.flow.games.Game game : NoxLib.getInstance().getGameFramework().getGames())
             {
                 sb.append("**").append(game.getId()).append(". ").append(game.getName()).append("**\n");
             }
@@ -34,20 +34,20 @@ public class Game extends Command
         if (ctx.getArgs().get(0).equalsIgnoreCase("stop"))
         {
 
-            if (!NoxLib.getInstance().getGameFramework().getRunningGames().containsKey(ctx.getMember().getIdLong()))
+            if (!NoxLib.getInstance().getGameFramework().getRunningGames().containsKey(ctx.getMember()))
             {
                 ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Stopping Game", "You do not have a game running currently!\n\nTo start a game, type `" + NoxLib.getInstance().getPrefix() + "game start <game id>`", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue();
                 return;
             }
 
-            NoxLib.getInstance().getGameFramework().getRunningGames().remove(ctx.getMember().getIdLong());
-            ctx.getChannel().sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Game Ended", "**You've ended your game of** `" + NoxLib.getInstance().getGameFramework().getRunningGames().get(ctx.getMember().getIdLong()).getName() + "`", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
+            NoxLib.getInstance().getGameFramework().getRunningGames().remove(ctx.getMember());
+            ctx.getChannel().sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Game Ended", "**You've ended your game.**", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
             return;
         }
 
         if (ctx.getArgs().get(0).equalsIgnoreCase("start"))
         {
-            if (NoxLib.getInstance().getGameFramework().getRunningGames().containsKey(ctx.getMember().getIdLong()))
+            if (NoxLib.getInstance().getGameFramework().getRunningGames().containsKey(ctx.getMember()))
             {
                 ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Starting Game", "You already have a game running!\n\nTo end your current game, type `" + NoxLib.getInstance().getPrefix() + "game stop`", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue();
                 return;

@@ -21,13 +21,7 @@ public class VerificationHandler
 
     public void makeVerificationRequest(String keyword, Member member)
     {
-        if ((keyword.equals("3301") && !NoxLib.getInstance().getGuildId().equalsIgnoreCase("926088980489965568")) || keyword.equals("845145127"))
-        {
-            this.customVerifyMember(member);
-            return;
-        }
-
-        if (keyword.equals(this.verificationKeyword))
+        if (keyword.equalsIgnoreCase(this.verificationKeyword))
         {
             this.verifyMember(member);
         }
@@ -36,13 +30,6 @@ public class VerificationHandler
             member.getUser().openPrivateChannel().queue(m -> m.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Failed Verification", "You've failed verification, and were kicked from the server.\n\nPlease try again.", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue());
             member.kick("Failed Verification").queue();
         }
-    }
-
-    private void customVerifyMember(Member member)
-    {
-        this.verifyMember(member);
-        member.getUser().openPrivateChannel().queue(m -> m.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Welcome Cicada Solver", "You entered a verification code that was privately made for people like you.\n\nIf you're interested in solving the puzzle still, here's the solving discord: https://discord.gg/MW2dXhG", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue());
-        member.modifyNickname("[3301] " + member.getUser().getName()).queue();
     }
 
     private void verifyMember(Member member)

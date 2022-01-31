@@ -1,4 +1,4 @@
-package me.noxiuam.noxlib.fun;
+package me.noxiuam.noxlib.flow;
 
 import me.noxiuam.noxlib.NoxLib;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;

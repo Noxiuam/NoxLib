@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.channel.ChannelCreateEvent;
 import net.dv8tion.jda.api.events.channel.ChannelDeleteEvent;
 import net.dv8tion.jda.api.events.guild.GuildBanEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceGuildMuteEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
@@ -133,7 +136,7 @@ public class LogListener extends ListenerAdapter
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
-                        "Voice Channel Created",
+                        "Voice Channel Deleted",
                         "**Channel Name:** `" + event.getChannel().getName() + "`" +
                                 "\n**Channel Type:** `" + event.getChannel().getType().name() + "`" +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
@@ -163,6 +166,47 @@ public class LogListener extends ListenerAdapter
                         "**Member:** " + event.getMember().getAsMention() + "" +
                                 "\n**Moderators in channel:** " + sb +
                                 "\n**Channel:** `" + event.getVoiceState().getChannel().getName() + "`" +
+                                "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
+        ).queue();
+    }
+
+    @Override
+    public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
+        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
+
+        Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
+                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
+                        "Role Added to Member",
+                        "**Role Name:** `" + event.getRoles().get(0).getName() + "`" +
+                                "\n**Member:** `" + event.getMember().getAsMention() + "`" +
+                                "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
+        ).queue();
+    }
+
+    @Override
+    public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
+        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
+
+        Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
+                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
+                        "Member Joined",
+                                "\n**Member:** `" + event.getMember().getAsMention() + "`" +
+                                "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
+        ).queue();
+    }
+
+    @Override
+    public void onGuildMemberRoleRemove(@NotNull GuildMemberRoleRemoveEvent event) {
+        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
+
+        Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
+                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
+                        "Role Removed from Member",
+                        "**Role Name:** `" + event.getRoles().get(0).getName() + "`" +
+                                "\n**Member:** `" + event.getMember().getAsMention() + "`" +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();

@@ -10,7 +10,7 @@ import me.noxiuam.noxlib.command.slash.Test;
 import me.noxiuam.noxlib.flow.BotJDAThread;
 import me.noxiuam.noxlib.flow.ConfigThread;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
-import me.noxiuam.noxlib.fun.games.GameFramework;
+import me.noxiuam.noxlib.flow.games.GameFramework;
 import me.noxiuam.noxlib.image.ImageDatabase;
 import lombok.*;
 import me.noxiuam.noxlib.command.*;

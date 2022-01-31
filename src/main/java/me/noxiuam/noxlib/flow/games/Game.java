@@ -1,17 +1,16 @@
-package me.noxiuam.noxlib.fun.games;
+package me.noxiuam.noxlib.flow.games;
 
 import lombok.*;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.CommandContext;
 import me.noxiuam.noxlib.image.ImageDatabase;
 import me.noxiuam.noxlib.util.MessageUtil;
+import net.dv8tion.jda.api.entities.Member;
 
 @Getter @AllArgsConstructor
 public abstract class Game
 {
     private String name;
-    private boolean multiplayer;
-    private boolean waiting;
     private final int id;
 
     public CommandContext ctx;
@@ -19,22 +18,20 @@ public abstract class Game
     public MessageUtil msg = new MessageUtil();
     public ImageDatabase imageDatabase = new ImageDatabase();
 
-    public Game(String name, int id, boolean multiplayer)
+    public Game(String name, int id)
     {
         this.name = name;
         this.id = id;
-        this.multiplayer = multiplayer;
     }
 
-    public abstract void init(CommandContext ctx);
+    public abstract void init(CommandContext ctx, Member member);
 
-    public abstract void run(CommandContext ctx);
+    public abstract void run(CommandContext ctx, Member member);
 
-    public abstract void handleGameInput(String unicode);
+    public abstract void handleGameInput(String unicode, Member member);
 
-    public void endGame(long memberId)
+    public void endGame(Member member)
     {
-        NoxLib.getInstance().getGameFramework().getRunningGames().remove(memberId);
+        NoxLib.getInstance().getGameFramework().getRunningGames().remove(member);
     }
-
 }
