@@ -1,6 +1,8 @@
 package me.noxiuam.noxlib.flow.reactionroles;
 
 import lombok.*;
+import me.noxiuam.noxlib.NoxLib;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.util.*;
 
@@ -13,4 +15,15 @@ public class ReactionRoleManager
     {
         this.reactionRoles.add(role);
     }
+
+    public void addRoleToMember(ReactionRole reactionRole, Member member)
+    {
+        NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId()).addRoleToMember(member, reactionRole.getRole()).queue();
+    }
+
+    public void removeRoleFromMember(ReactionRole reactionRole, Member member)
+    {
+        NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId()).removeRoleFromMember(member, reactionRole.getRole()).queue();
+    }
+
 }

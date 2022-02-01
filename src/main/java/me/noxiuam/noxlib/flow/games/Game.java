@@ -34,5 +34,6 @@ public abstract class Game
     {
         NoxLib.getInstance().getGameFramework().getBridgeData().remove(NoxLib.getInstance().getGameFramework().getBridgeData().stream().filter(game -> game.getMemberId() == member.getIdLong()).findFirst().orElse(null));
         NoxLib.getInstance().getGameFramework().getRunningGames().remove(member);
+        NoxLib.getInstance().getGameFramework().getPlayerList().remove(member);
     }
 }

@@ -14,10 +14,13 @@ public class GameListener extends ListenerAdapter
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event)
     {
-        Message gameMessage = NoxLib.getInstance().getGameFramework().getRunningGames().get(event.getMember());
-        Game game = NoxLib.getInstance().getGameFramework().getGameById(1);
+        if (!NoxLib.getInstance().getGameFramework().getPlayerList().containsKey(event.getMember()) || !NoxLib.getInstance().getGameFramework().getGamePieces().contains(event.getReactionEmote().getAsReactionCode())) return;
 
-        if (!Objects.requireNonNull(event.getMember()).getUser().isBot())
+        int gameId = NoxLib.getInstance().getGameFramework().getPlayerList().get(event.getMember());
+        Message gameMessage = NoxLib.getInstance().getGameFramework().getRunningGames().get(event.getMember());
+        Game game = NoxLib.getInstance().getGameFramework().getGameById(gameId);
+
+        if (!Objects.requireNonNull(event.getMember()).getUser().isBot() && gameMessage != null)
         {
             event.getReaction().removeReaction(Objects.requireNonNull(event.getUser())).queue();
         }

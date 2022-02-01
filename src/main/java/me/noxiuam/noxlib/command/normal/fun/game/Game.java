@@ -54,6 +54,13 @@ public class Game extends Command
                 ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Starting Game", "You already have a game running!\n\nTo end your current game, type `" + NoxLib.getInstance().getPrefix() + "game stop`", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue();
                 return;
             }
+
+            if (ctx.getArgs().size() == 1)
+            {
+                ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Starting Game", "You did not specify a game to start! Use `" + NoxLib.getInstance().getPrefix() + "game list` to view the list of games you can play!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue();
+                return;
+            }
+
             try
             {
                 NoxLib.getInstance().getGameFramework().startGame(ctx, Integer.parseInt(ctx.getArgs().get(1)));

@@ -13,16 +13,23 @@ import java.util.*;
 public class GameFramework
 {
     public final List<Game> games = new ArrayList<>();
+    public final Map<Member, Integer> playerList = new HashMap<>();
     public final Map<Member, Message> runningGames = new HashMap<>();
+    public final List<String> gamePieces = new ArrayList<>();
+
+    // Game Stuff
     @Getter public final List<GlassBridgeData> bridgeData = new ArrayList<>();
 
     public GameFramework()
     {
         this.games.add(new GlassBridge());
+        this.gamePieces.add("➡");
+        this.gamePieces.add("⬅");
     }
 
     public void startGame(CommandContext ctx, int id)
     {
+        this.getPlayerList().put(ctx.getMember(), id);
         this.getGameById(id).init(ctx, ctx.getMember());
     }
 
