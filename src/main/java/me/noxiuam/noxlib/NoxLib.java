@@ -12,6 +12,7 @@ import me.noxiuam.noxlib.flow.BotJDAThread;
 import me.noxiuam.noxlib.flow.ConfigThread;
 import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
 import me.noxiuam.noxlib.flow.games.GameFramework;
+import me.noxiuam.noxlib.flow.reactionroles.ReactionRoleManager;
 import me.noxiuam.noxlib.image.ImageDatabase;
 import lombok.*;
 import me.noxiuam.noxlib.command.*;
@@ -39,7 +40,8 @@ public class NoxLib
     public Map<Long, DeletedMessage> messageCache = new HashMap<>();
     private final long startTime;
 
-    @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId, ticketReactChannelId, welcomeChannelId, reportsChannelId;
+    @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId,
+            ticketReactChannelId, welcomeChannelId, reportsChannelId, roleMenuChannelId;
     public Config config;
 
     // Utilities
@@ -55,6 +57,7 @@ public class NoxLib
     public CommandManager commandManager;
     public VerificationHandler verificationHandler;
     public ImageDatabase imageDatabase;
+    public ReactionRoleManager reactionRoleManager;
 
     // Automation
     public AutoReponseHandler autoReponseHandler;
@@ -94,6 +97,8 @@ public class NoxLib
         System.out.println("[NoxLib] Created Verification Handler!");
         this.imageDatabase = new ImageDatabase();
         System.out.println("[NoxLib] Created Image Database!");
+        this.reactionRoleManager = new ReactionRoleManager();
+        System.out.println("[NoxLib] Created Reaction Role Manager!");
 
         this.gameFramework = new GameFramework();
         System.out.println("[NoxLib] Created Game Framework!");
