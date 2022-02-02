@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateNameEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,21 +27,6 @@ import java.util.Objects;
  */
 public class LogListener extends ListenerAdapter
 {
-
-    @Override
-    public void onGuildVoiceJoin(GuildVoiceJoinEvent event)
-    {
-        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasBasicLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
-
-        Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
-                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
-                        "Member Voice Join",
-                        "**Member:** " + event.getMember().getAsMention() + "\n"
-                                + "**Channel:** `" + event.getChannelJoined().getName() + "`\n" +
-                                "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
-                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
-        ).queue();
-    }
 
     @Override
     public void onMessageDelete(@NotNull MessageDeleteEvent event)
@@ -58,6 +44,21 @@ public class LogListener extends ListenerAdapter
                             NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
             ).queue();
         }
+    }
+
+    @Override
+    public void onGuildVoiceJoin(GuildVoiceJoinEvent event)
+    {
+        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasBasicLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
+
+        Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
+                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
+                        "Member Voice Join",
+                        "**Member:** " + event.getMember().getAsMention() + "\n"
+                                + "**Channel:** " + event.getChannelJoined().getAsMention() + "\n" +
+                                "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
+        ).queue();
     }
 
     @Override
@@ -103,7 +104,21 @@ public class LogListener extends ListenerAdapter
     }
 
     @Override
-    public void onGuildMemberUpdateNickname(GuildMemberUpdateNicknameEvent event) {
+    public void onUserUpdateName(@NotNull UserUpdateNameEvent event) {
+        if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
+
+        Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).getTextChannelById(NoxLib.getInstance().getLogChannelId()).sendMessageEmbeds(
+                NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
+                        "Member Name Changed",
+                        "**Member:** " + event.getUser().getAsMention() +
+                                "\n**Change:** `" + event.getOldName() + "` **->** `" + event.getNewName() + "`"
+                                + "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                        NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
+        ).queue();
+    }
+
+    @Override
+    public void onGuildMemberUpdateNickname(@NotNull GuildMemberUpdateNicknameEvent event) {
         if (NoxLib.getInstance().getConfig() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfig().getBotTier())) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
@@ -123,7 +138,7 @@ public class LogListener extends ListenerAdapter
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Channel Created",
-                        "**Channel Name:** " + event.getChannel().getAsMention() +
+                        "**Channel:** " + event.getChannel().getAsMention() +
                                 "\n**Channel Type:** `" + event.getChannel().getType().name() + "`" +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
@@ -163,9 +178,9 @@ public class LogListener extends ListenerAdapter
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Member " + (muted ? "S" : "Uns") + "erver Muted",
-                        "**Member:** " + event.getMember().getAsMention() + "" +
+                        "**Member:** " + event.getMember().getAsMention() +
                                 "\n**Moderators in channel:** " + sb +
-                                "\n**Channel:** `" + event.getVoiceState().getChannel().getName() + "`" +
+                                "\n**Channel:** " + event.getVoiceState().getChannel().getAsMention() +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();
@@ -178,8 +193,8 @@ public class LogListener extends ListenerAdapter
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Role Added to Member",
-                        "**Role Name:** `" + event.getRoles().get(0).getName() + "`" +
-                                "\n**Member:** `" + event.getMember().getAsMention() + "`" +
+                        "**Role Name:** " + event.getRoles().get(0).getAsMention() +
+                                "\n**Member:** " + event.getMember().getAsMention() +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();
@@ -205,8 +220,8 @@ public class LogListener extends ListenerAdapter
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Role Removed from Member",
-                        "**Role Name:** `" + event.getRoles().get(0).getName() + "`" +
-                                "\n**Member:** `" + event.getMember().getAsMention() + "`" +
+                        "**Role Name:** " + event.getRoles().get(0).getAsMention() + "" +
+                                "\n**Member:** " + event.getMember().getAsMention() +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();

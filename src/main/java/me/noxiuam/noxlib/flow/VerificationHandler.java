@@ -10,6 +10,9 @@ import java.util.concurrent.TimeUnit;
 @Setter @Getter
 public class VerificationHandler
 {
+    public boolean reactionVerificationEnabled;
+    public String verificationEmoteId;
+
     public String verificationChannelId;
     public String verificationKeyword;
     public String verifiedRoleId;
@@ -32,16 +35,33 @@ public class VerificationHandler
         }
     }
 
+    public void makeVerificationRequest(Member member)
+    {
+        this.verifyMember(member);
+    }
+
     private void verifyMember(Member member)
     {
         Role role = Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).getRoleById(this.verifiedRoleId);
         NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId()).addRoleToMember(member, role).queue();
 
-        NoxLib.getInstance().getBotJda().getTextChannelById(NoxLib.getInstance().getVerificationHandler().getVerificationChannelId()).sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(this.verificationTitle, this.verificationDescription, this.verificationImage).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+        if (!this.isReactionVerificationEnabled())
+        {
+            NoxLib.getInstance().getBotJda().getTextChannelById(NoxLib.getInstance().getVerificationHandler().getVerificationChannelId()).sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(this.verificationTitle, this.verificationDescription, this.verificationImage).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+        }
     }
 
-    public void setup(String title, String desc, String image)
+    // Emote Verification Only
+    public void setup(boolean reactionVerificationEnabled, String verificationEmoteId)
     {
+        this.setReactionVerificationEnabled(reactionVerificationEnabled);
+        this.setVerificationEmoteId(verificationEmoteId);
+    }
+
+    // Word Verification Only
+    public void setup(boolean reactionVerificationEnabled, String title, String desc, String image)
+    {
+        this.setReactionVerificationEnabled(reactionVerificationEnabled);
         this.setVerificationTitle(title);
         this.setVerificationDescription(desc);
         this.setVerificationImage(image);
