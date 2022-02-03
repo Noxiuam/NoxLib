@@ -194,7 +194,7 @@ public class LogListener extends ListenerAdapter
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Role Added to Member",
                         "**Role Name:** " + event.getRoles().get(0).getAsMention() +
-                                "\n**Member:** " + event.getMember().getAsMention() +
+                                "\n**Member:** " + event.getUser().getAsMention() +
                                 "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();
