@@ -14,7 +14,7 @@ public class VerificationListener extends ListenerAdapter
 
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
-        if (event.getMember().getUser().isBot() && !NoxLib.getInstance().getVerificationHandler().isReactionVerificationEnabled()) return;
+        if (event.getMember().getUser().isBot() || !NoxLib.getInstance().getVerificationHandler().isReactionVerificationEnabled()) return;
 
         if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getVerificationHandler().getVerificationChannelId()) && event.getReactionEmote().getEmote().getId().equalsIgnoreCase(NoxLib.getInstance().getVerificationHandler().verificationEmoteId))
         {
