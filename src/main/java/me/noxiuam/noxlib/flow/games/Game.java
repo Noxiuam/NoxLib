@@ -7,21 +7,23 @@ import me.noxiuam.noxlib.image.ImageDatabase;
 import me.noxiuam.noxlib.util.MessageUtil;
 import net.dv8tion.jda.api.entities.Member;
 
-@Getter @AllArgsConstructor
+@Getter
 public abstract class Game
 {
-    private String name;
+    private final String name;
     private final int id;
+    private final String[] acceptedPieces;
 
     public CommandContext ctx;
 
     public MessageUtil msg = new MessageUtil();
     public ImageDatabase imageDatabase = new ImageDatabase();
 
-    public Game(String name, int id)
+    public Game(String name, int id, String... acceptedPieces)
     {
         this.name = name;
         this.id = id;
+        this.acceptedPieces = acceptedPieces;
     }
 
     public abstract void init(CommandContext ctx, Member member);
@@ -32,6 +34,7 @@ public abstract class Game
 
     public void endGame(Member member)
     {
+        NoxLib.getInstance().getGameFramework().getFlagGuesserData().remove(NoxLib.getInstance().getGameFramework().getFlagGuesserData().stream().filter(game -> game.getMemberId() == member.getIdLong()).findFirst().orElse(null));
         NoxLib.getInstance().getGameFramework().getBridgeData().remove(NoxLib.getInstance().getGameFramework().getBridgeData().stream().filter(game -> game.getMemberId() == member.getIdLong()).findFirst().orElse(null));
         NoxLib.getInstance().getGameFramework().getRunningGames().remove(member);
         NoxLib.getInstance().getGameFramework().getPlayerList().remove(member);

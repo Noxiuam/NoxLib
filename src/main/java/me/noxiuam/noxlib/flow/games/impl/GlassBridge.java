@@ -13,7 +13,7 @@ public class GlassBridge extends Game
 {
     public GlassBridge()
     {
-        super("Glass Bridge [Squid Game Series]", 1);
+        super("Glass Bridge [Squid Game Series]", 1, "\u2B05", "\u27A1");
     }
 
     @Override

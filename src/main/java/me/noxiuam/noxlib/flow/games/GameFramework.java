@@ -2,6 +2,7 @@ package me.noxiuam.noxlib.flow.games;
 
 import lombok.Getter;
 import me.noxiuam.noxlib.command.CommandContext;
+import me.noxiuam.noxlib.flow.games.data.FlagGuesserData;
 import me.noxiuam.noxlib.flow.games.data.GlassBridgeData;
 import me.noxiuam.noxlib.flow.games.impl.GlassBridge;
 import net.dv8tion.jda.api.entities.Member;
@@ -19,6 +20,7 @@ public class GameFramework
 
     // Game Stuff
     @Getter public final List<GlassBridgeData> bridgeData = new ArrayList<>();
+    @Getter public final List<FlagGuesserData> flagGuesserData = new ArrayList<>();
 
     public GameFramework()
     {
