@@ -14,10 +14,15 @@ public class Config
     public Tier botTier;
 
     // Ticket
-    public static String defaultTicketTitle;
-    public static String defaultTicketMessage;
-    public static String defaultTicketImage;
-    public static String defaultTicketEmoteId;
+    public String defaultTicketTitle;
+    public String defaultTicketMessage;
+    public String defaultTicketImage;
+    public String defaultTicketEmoteId;
+
+    public void setupTicketValues(String defaultTicketTitle, String defaultTicketMessage, String defaultTicketImage, String defaultTicketEmoteId)
+    {
+        this.defaultTicketEmoteId = defaultTicketImage;
+    }
 
     // Bronze
     public Config(Tier tier, String prefix)

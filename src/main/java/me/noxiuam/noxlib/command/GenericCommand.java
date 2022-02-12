@@ -1,14 +1,14 @@
 package me.noxiuam.noxlib.command;
 
 import lombok.*;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import me.noxiuam.noxlib.command.util.CommandContext;
 
 @Getter @AllArgsConstructor
-public abstract class SlashCommand
+public abstract class GenericCommand
 {
     private String name;
     private String description;
     private String usage;
 
-    public abstract void execute(SlashCommandEvent ctx);
+    public abstract void execute(CommandContext ctx);
 }

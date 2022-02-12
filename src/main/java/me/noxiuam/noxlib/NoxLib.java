@@ -1,27 +1,25 @@
 package me.noxiuam.noxlib;
 
-import me.noxiuam.noxlib.automation.automod.AutoModeration;
-import me.noxiuam.noxlib.automation.autoresponse.AutoReponseHandler;
-import me.noxiuam.noxlib.command.normal.fun.RandomImage;
-import me.noxiuam.noxlib.command.normal.fun.game.Game;
-import me.noxiuam.noxlib.command.normal.moderation.*;
-import me.noxiuam.noxlib.command.normal.music.Queue;
-import me.noxiuam.noxlib.command.normal.ticket.*;
-import me.noxiuam.noxlib.command.slash.Test;
-import me.noxiuam.noxlib.flow.BotJDAThread;
-import me.noxiuam.noxlib.flow.ConfigThread;
-import me.noxiuam.noxlib.flow.moderation.DeletedMessage;
-import me.noxiuam.noxlib.flow.games.GameFramework;
-import me.noxiuam.noxlib.flow.reactionroles.ReactionRoleManager;
-import me.noxiuam.noxlib.image.ImageDatabase;
+import me.noxiuam.noxlib.feature.AutoModerationHandler;
+import me.noxiuam.noxlib.feature.message.AutoResponseHandler;
+import me.noxiuam.noxlib.command.impl.fun.game.Game;
+import me.noxiuam.noxlib.command.impl.moderation.*;
+import me.noxiuam.noxlib.command.impl.music.Queue;
+import me.noxiuam.noxlib.command.impl.ticket.*;
+import me.noxiuam.noxlib.command.util.CommandManager;
+import me.noxiuam.noxlib.util.function.BotJDAThread;
+import me.noxiuam.noxlib.util.function.ConfigThread;
+import me.noxiuam.noxlib.util.data.user.DeletedMessage;
+import me.noxiuam.noxlib.feature.games.GameFramework;
+import me.noxiuam.noxlib.feature.reactionroles.ReactionRoleManager;
+import me.noxiuam.noxlib.media.ImageDatabase;
 import lombok.*;
-import me.noxiuam.noxlib.command.*;
-import me.noxiuam.noxlib.command.normal.music.*;
+import me.noxiuam.noxlib.command.impl.music.*;
 import me.noxiuam.noxlib.config.Config;
-import me.noxiuam.noxlib.flow.VerificationHandler;
+import me.noxiuam.noxlib.feature.VerificationHandler;
 import me.noxiuam.noxlib.services.TierHandler;
-import me.noxiuam.noxlib.ticket.TicketHandler;
-import me.noxiuam.noxlib.util.*;
+import me.noxiuam.noxlib.feature.TicketHandler;
+import me.noxiuam.noxlib.util.custom.*;
 import net.dv8tion.jda.api.JDA;
 
 import java.util.*;
@@ -42,9 +40,9 @@ public class NoxLib
 
     @Setter public String prefix = "$", logChannelId, guildId, ticketCategoryId,
             ticketReactChannelId, welcomeChannelId, reportsChannelId, roleMenuChannelId;
-    public Config config;
 
-    // Utilities
+    public Config configuration;
+
     public TierHandler tierHandler;
     public MessageUtil messageUtil;
     public ProcessUtil processUtil;
@@ -52,18 +50,13 @@ public class NoxLib
     public TimeUtil timeUtil;
     public MathUtil mathUtil;
 
-    // Handlers and Data Holders
     public TicketHandler ticketHandler;
     public CommandManager commandManager;
     public VerificationHandler verificationHandler;
     public ImageDatabase imageDatabase;
     public ReactionRoleManager reactionRoleManager;
-
-    // Automation
-    public AutoReponseHandler autoReponseHandler;
-    public AutoModeration autoModeration;
-
-    // Games
+    public AutoResponseHandler autoReponseHandler;
+    public AutoModerationHandler autoModerationHandler;
     public GameFramework gameFramework;
 
     public NoxLib()
@@ -71,50 +64,37 @@ public class NoxLib
         instance = this;
         this.startTime = System.currentTimeMillis();
 
-        this.tierHandler = new TierHandler();
-        System.out.println("[NoxLib Services] Created Tier Handler!");
-
-        this.messageUtil = new MessageUtil();
-        System.out.println("[NoxLib] Created Message Utility!");
-        this.commandManager = new CommandManager();
-        System.out.println("[NoxLib] Created Command Base!");
-        this.processUtil = new ProcessUtil();
-        System.out.println("[NoxLib] Created Process Utility!");
-        this.codecUtil = new CodecUtil();
-        System.out.println("[NoxLib] Created Codec Utility!");
-        this.timeUtil = new TimeUtil();
-        System.out.println("[NoxLib] Created Time Utility!");
-        this.mathUtil = new MathUtil();
-        System.out.println("[NoxLib] Created Math Utility");
-
-        this.autoReponseHandler = new AutoReponseHandler();
-        System.out.println("[NoxLib] Created Auto Response!");
-        this.autoModeration = new AutoModeration();
-        System.out.println("[NoxLib] Created Auto Moderation!");
-        this.ticketHandler = new TicketHandler();
-        System.out.println("[NoxLib] Created Ticket Handler!");
-        this.verificationHandler = new VerificationHandler();
-        System.out.println("[NoxLib] Created Verification Handler!");
-        this.imageDatabase = new ImageDatabase();
-        System.out.println("[NoxLib] Created Image Database!");
-        this.reactionRoleManager = new ReactionRoleManager();
-        System.out.println("[NoxLib] Created Reaction Role Manager!");
-
-        this.gameFramework = new GameFramework();
-        System.out.println("[NoxLib] Created Game Framework!");
+        {
+            this.tierHandler = new TierHandler();
+            this.commandManager = new CommandManager();
+        }
+        {
+            this.messageUtil = new MessageUtil();
+            this.processUtil = new ProcessUtil();
+            this.codecUtil = new CodecUtil();
+            this.timeUtil = new TimeUtil();
+            this.mathUtil = new MathUtil();
+            System.out.println("[NoxLib] Created Custom Utilities!");
+        }
+        {
+            this.autoReponseHandler = new AutoResponseHandler();
+            this.autoModerationHandler = new AutoModerationHandler();
+            this.ticketHandler = new TicketHandler();
+            this.verificationHandler = new VerificationHandler();
+            this.imageDatabase = new ImageDatabase();
+            this.reactionRoleManager = new ReactionRoleManager();
+            this.gameFramework = new GameFramework();
+        }
 
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new ConfigThread(), 0L, 5L, TimeUnit.SECONDS);
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new BotJDAThread(), 0L, 5L, TimeUnit.SECONDS);
 
         // Register Normal Commands
         this.commandManager.register(
-                new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(), new Unban(), new Purge(),
-                new Join(), new Play(), new Stop(), new Leave(), new Skip(), new Loop(), new Queue(), new RandomImage(),
-                new Game(), new Report()
+                new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(),
+                new Unban(), new Purge(), new Join(), new Play(), new Stop(), new Leave(),
+                new Skip(), new Loop(), new Queue(), new Game(), new Report()
         );
-
-        // Register Slash Commands
-        this.commandManager.registerSlashCommands(new Test());
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");
     }
