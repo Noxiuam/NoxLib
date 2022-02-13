@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib;
 
 import me.noxiuam.noxlib.feature.AutoModerationHandler;
+import me.noxiuam.noxlib.feature.AutoReactionHandler;
 import me.noxiuam.noxlib.feature.message.AutoResponseHandler;
 import me.noxiuam.noxlib.command.impl.fun.game.Game;
 import me.noxiuam.noxlib.command.impl.moderation.*;
@@ -58,6 +59,8 @@ public class NoxLib
     public ReactionRoleManager reactionRoleManager;
     public AutoResponseHandler autoResponseHandler;
     public AutoModerationHandler autoModerationHandler;
+    public AutoReactionHandler autoReactionHandler;
+
     public GameFramework gameFramework;
 
     public NoxLib()
@@ -81,6 +84,7 @@ public class NoxLib
 
         {
             this.autoResponseHandler = new AutoResponseHandler();
+            this.autoReactionHandler = new AutoReactionHandler();
             this.autoModerationHandler = new AutoModerationHandler();
             this.ticketHandler = new TicketHandler();
             this.verificationHandler = new VerificationHandler();
