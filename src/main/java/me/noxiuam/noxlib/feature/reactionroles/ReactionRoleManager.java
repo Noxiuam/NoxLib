@@ -11,11 +11,6 @@ public class ReactionRoleManager
 {
     private final List<ReactionRole> reactionRoles = new ArrayList<>();
 
-    public ReactionRoleManager()
-    {
-        System.out.println("[NoxLib] Created Reaction Role Manager!");
-    }
-
     public void register(ReactionRole role)
     {
         this.reactionRoles.add(role);

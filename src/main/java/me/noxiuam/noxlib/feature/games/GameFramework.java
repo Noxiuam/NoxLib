@@ -17,7 +17,7 @@ public class GameFramework
     public final List<GenericGameProfile> gameProfiles = new ArrayList<>();
     public final List<GlassBridgeData> bridgeData = new ArrayList<>(); // Had to do a custom data class for this to work
 
-    public final Map<Member, Integer> playerList = new HashMap<>(); // Will be used to collect playerdata later for commands for users.
+    public final Map<Member, Integer> playerList = new HashMap<>(); // Will be used to collect player's data later for commands for users.
     public final Map<Member, Message> runningGames = new HashMap<>();
 
     public GameFramework()
@@ -25,7 +25,6 @@ public class GameFramework
         this.registeredGames.add(new GlassBridge());
         this.gamePieces.add("➡");
         this.gamePieces.add("⬅");
-        System.out.println("[NoxLib] Created Game Framework!");
     }
 
     public void startGame(CommandContext ctx, int id)

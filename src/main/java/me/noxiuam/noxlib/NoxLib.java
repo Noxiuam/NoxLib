@@ -49,13 +49,14 @@ public class NoxLib
     public CodecUtil codecUtil;
     public TimeUtil timeUtil;
     public MathUtil mathUtil;
+    public ThreadUtil threadUtil;
 
     public TicketHandler ticketHandler;
     public CommandManager commandManager;
     public VerificationHandler verificationHandler;
     public ImageDatabase imageDatabase;
     public ReactionRoleManager reactionRoleManager;
-    public AutoResponseHandler autoReponseHandler;
+    public AutoResponseHandler autoResponseHandler;
     public AutoModerationHandler autoModerationHandler;
     public GameFramework gameFramework;
 
@@ -68,16 +69,18 @@ public class NoxLib
             this.tierHandler = new TierHandler();
             this.commandManager = new CommandManager();
         }
+
         {
             this.messageUtil = new MessageUtil();
             this.processUtil = new ProcessUtil();
             this.codecUtil = new CodecUtil();
             this.timeUtil = new TimeUtil();
             this.mathUtil = new MathUtil();
-            System.out.println("[NoxLib] Created Custom Utilities!");
+            this.threadUtil = new ThreadUtil();
         }
+
         {
-            this.autoReponseHandler = new AutoResponseHandler();
+            this.autoResponseHandler = new AutoResponseHandler();
             this.autoModerationHandler = new AutoModerationHandler();
             this.ticketHandler = new TicketHandler();
             this.verificationHandler = new VerificationHandler();
@@ -86,10 +89,10 @@ public class NoxLib
             this.gameFramework = new GameFramework();
         }
 
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new ConfigThread(), 0L, 5L, TimeUnit.SECONDS);
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new BotJDAThread(), 0L, 5L, TimeUnit.SECONDS);
+        this.threadUtil.createThread(new ConfigThread(), 5L);
+        this.threadUtil.createThread(new BotJDAThread(), 5L);
 
-        // Register Normal Commands
+        // Register Built-In Generic Commands
         this.commandManager.register(
                 new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(),
                 new Unban(), new Purge(), new Join(), new Play(), new Stop(), new Leave(),

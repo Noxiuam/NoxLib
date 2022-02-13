@@ -35,11 +35,11 @@ public class Listener extends ListenerAdapter
 
         if (NoxLib.getInstance().getConfiguration().getBotTier().getName().equalsIgnoreCase("silver") || NoxLib.getInstance().getTierHandler().isTopTier(NoxLib.getInstance().getConfiguration().getBotTier()))
         {
-            for (AutoReponseMessage msg : NoxLib.getInstance().getAutoReponseHandler().getAutoResponses())
+            for (AutoReponseMessage msg : NoxLib.getInstance().getAutoResponseHandler().getAutoResponses())
             {
                 if (msg.getTrigger().equalsIgnoreCase(event.getMessage().getContentRaw()))
                 {
-                    event.getMessage().reply(NoxLib.getInstance().getAutoReponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
+                    event.getMessage().reply(NoxLib.getInstance().getAutoResponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
                 }
             }
         }

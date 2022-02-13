@@ -22,11 +22,6 @@ public class VerificationHandler
     public String verificationDescription;
     public String verificationImage;
 
-    public VerificationHandler()
-    {
-        System.out.println("[NoxLib] Created Verification Handler!");
-    }
-
     public void makeVerificationRequest(String keyword, Member member)
     {
         if (keyword.equalsIgnoreCase(this.verificationKeyword))

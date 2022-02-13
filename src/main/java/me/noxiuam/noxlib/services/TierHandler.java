@@ -2,12 +2,6 @@ package me.noxiuam.noxlib.services;
 
 public class TierHandler
 {
-
-    public TierHandler()
-    {
-        System.out.println("[NoxLib Services] Created Tier Handler!");
-    }
-
     public boolean hasBasicLogging(Tier tier)
     {
         return tier.getName().equalsIgnoreCase("platinum") || this.hasAdvancedLogging(tier);

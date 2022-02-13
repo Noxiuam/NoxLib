@@ -10,12 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 public class TicketHandler
 {
-
-    public TicketHandler()
-    {
-        System.out.println("[NoxLib] Created Ticket Handler!");
-    }
-
     public void createNewTicket(Member member)
     {
         if (!NoxLib.getInstance().getOpenTickets().contains(member.getUser().getAsTag()))

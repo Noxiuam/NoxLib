@@ -10,11 +10,6 @@ public class AutoResponseHandler
 {
     private final List<AutoReponseMessage> autoResponses = new ArrayList<>();
 
-    public AutoResponseHandler()
-    {
-        System.out.println("[NoxLib] Created Auto Response!");
-    }
-
     public void register(String trigger, String response)
     {
         AutoReponseMessage msg = new AutoReponseMessage(trigger, response);

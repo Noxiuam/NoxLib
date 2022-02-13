@@ -13,11 +13,6 @@ public class CommandManager
     public List<GenericCommand> commands = new ArrayList<>();
     public List<SlashCommand> slashCommands = new ArrayList<>();
 
-    public CommandManager()
-    {
-        System.out.println("[NoxLib] Created Command Manager!");
-    }
-
     public void register(GenericCommand... commands)
     {
         Collections.addAll(this.commands, commands);
