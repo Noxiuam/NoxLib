@@ -2,6 +2,7 @@ package me.noxiuam.noxlib.command.impl.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.GuildMusicManager;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
@@ -15,7 +16,7 @@ public class Loop extends GenericCommand
 {
     public Loop()
     {
-        super("loop", "Loops through the currently playing track.", NoxLib.getInstance().getPrefix() + "loop");
+        super("loop", "Loops through the currently playing track.", NoxLib.getInstance().getPrefix() + "loop", Tier.PLATINUM);
     }
 
     @Override

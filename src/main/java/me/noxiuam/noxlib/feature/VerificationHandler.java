@@ -2,6 +2,7 @@ package me.noxiuam.noxlib.feature;
 
 import lombok.*;
 import me.noxiuam.noxlib.NoxLib;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.*;
@@ -30,8 +31,11 @@ public class VerificationHandler
             return;
         }
 
-        member.getUser().openPrivateChannel().queue(m -> m.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Failed Verification", "You've failed verification, and were kicked from the server.\n\nPlease try again.", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue());
-        member.kick("Failed Verification").queue();
+        if (!member.hasPermission(Permission.ADMINISTRATOR))
+        {
+            member.getUser().openPrivateChannel().queue(m -> m.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Failed Verification", "You've failed verification, and were kicked from the server.\n\nPlease try again.", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue());
+            member.kick("Failed Verification").queue();
+        }
     }
 
     private void verifyMember(Member member)

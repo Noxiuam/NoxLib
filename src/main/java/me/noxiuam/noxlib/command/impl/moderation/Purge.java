@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.moderation;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -14,7 +15,7 @@ public class Purge extends GenericCommand
 {
     public Purge()
     {
-     super("purge", "Deletes a certain amount of messages.", NoxLib.getInstance().getPrefix() + "purge <amount>");
+     super("purge", "Deletes a certain amount of messages.", NoxLib.getInstance().getPrefix() + "purge <amount>", Tier.BRONZE);
     }
 
     @Override

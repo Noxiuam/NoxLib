@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.command.impl.music;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.GuildMusicManager;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
@@ -16,7 +17,7 @@ public class Stop extends GenericCommand
 {
     public Stop()
     {
-        super("stop", "Stops playing music and clears the queue.", NoxLib.getInstance().getPrefix() + "stop");
+        super("stop", "Stops playing music and clears the queue.", NoxLib.getInstance().getPrefix() + "stop", Tier.PLATINUM);
     }
 
     @Override

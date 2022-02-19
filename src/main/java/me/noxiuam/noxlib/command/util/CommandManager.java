@@ -2,7 +2,6 @@ package me.noxiuam.noxlib.command.util;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
-import me.noxiuam.noxlib.command.SlashCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.*;
@@ -11,7 +10,6 @@ import java.util.regex.Pattern;
 public class CommandManager
 {
     public List<GenericCommand> commands = new ArrayList<>();
-    public List<SlashCommand> slashCommands = new ArrayList<>();
 
     public void register(GenericCommand... commands)
     {
@@ -21,16 +19,6 @@ public class CommandManager
     public void unregister(GenericCommand... commands)
     {
         this.commands.removeAll(Arrays.asList(commands));
-    }
-
-    public void unregisterSlashCommands(SlashCommand... slashCommands)
-    {
-        this.slashCommands.removeAll(Arrays.asList(slashCommands));
-    }
-
-    public void registerSlashCommands(SlashCommand... slashCommands)
-    {
-        Collections.addAll(this.slashCommands, slashCommands);
     }
 
     public void handle(MessageReceivedEvent event)
@@ -47,7 +35,8 @@ public class CommandManager
 
         for (GenericCommand cmd : this.commands)
         {
-            if (cmd != null && msg.startsWith(NoxLib.getInstance().getPrefix() + cmd.getName()))
+            if (cmd != null && msg.startsWith(NoxLib.getInstance().getPrefix() + cmd.getName())
+                    && NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(cmd.getRequiredTier()))
             {
                 CommandContext ctx = new CommandContext(event, Arrays.asList(split).subList(1, split.length));
                 cmd.execute(ctx);

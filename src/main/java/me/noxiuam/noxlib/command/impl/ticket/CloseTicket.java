@@ -3,13 +3,14 @@ package me.noxiuam.noxlib.command.impl.ticket;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 
 public class CloseTicket extends GenericCommand
 {
 
     public CloseTicket()
     {
-        super("close", "Closes a ticket.", NoxLib.getInstance().getPrefix() + "close");
+        super("close", "Closes a ticket.", NoxLib.getInstance().getPrefix() + "close", Tier.SILVER);
     }
 
     @Override

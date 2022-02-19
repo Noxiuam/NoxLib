@@ -60,15 +60,15 @@ public class MessageUtil
     /*
      * Creates an embed message with a thumbnail, and an author.
      */
-    public EmbedBuilder createEmbedWithAuthorAndThumbnail(String title, String description, String author)
+    public EmbedBuilder createEmbedWithAuthorAndThumbnail(String title, String description, String author, String thumbnail)
     {
         EmbedBuilder b = new EmbedBuilder();
-        b.setTitle(title).setDescription(description).setAuthor(author);
+        b.setTitle(title).setDescription(description).setAuthor(author).setThumbnail(thumbnail);
         return b;
     }
 
     /*
-     * Creates an embed message with a thumbnail, an author, and an me.noxiuam.noxlib.image.
+     * Creates an embed message with a thumbnail, an author, and an image.
      */
     public EmbedBuilder createEmbedWithAuthorThumbnailAndImage(String title, String description, String author, String thumbnail, String image)
     {

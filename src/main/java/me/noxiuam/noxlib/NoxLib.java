@@ -8,7 +8,6 @@ import me.noxiuam.noxlib.command.impl.moderation.*;
 import me.noxiuam.noxlib.command.impl.music.Queue;
 import me.noxiuam.noxlib.command.impl.ticket.*;
 import me.noxiuam.noxlib.command.util.CommandManager;
-import me.noxiuam.noxlib.util.function.BotJDAThread;
 import me.noxiuam.noxlib.util.function.ConfigThread;
 import me.noxiuam.noxlib.util.data.user.DeletedMessage;
 import me.noxiuam.noxlib.feature.games.GameFramework;
@@ -18,14 +17,11 @@ import lombok.*;
 import me.noxiuam.noxlib.command.impl.music.*;
 import me.noxiuam.noxlib.config.Config;
 import me.noxiuam.noxlib.feature.VerificationHandler;
-import me.noxiuam.noxlib.services.TierHandler;
 import me.noxiuam.noxlib.feature.TicketHandler;
 import me.noxiuam.noxlib.util.custom.*;
 import net.dv8tion.jda.api.JDA;
 
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 public class NoxLib
@@ -44,7 +40,6 @@ public class NoxLib
 
     public Config configuration;
 
-    public TierHandler tierHandler;
     public MessageUtil messageUtil;
     public ProcessUtil processUtil;
     public CodecUtil codecUtil;
@@ -69,7 +64,6 @@ public class NoxLib
         this.startTime = System.currentTimeMillis();
 
         {
-            this.tierHandler = new TierHandler();
             this.commandManager = new CommandManager();
         }
 
@@ -94,7 +88,6 @@ public class NoxLib
         }
 
         this.threadUtil.createThread(new ConfigThread(), 5L);
-        this.threadUtil.createThread(new BotJDAThread(), 5L);
 
         // Register Built-In Generic Commands
         this.commandManager.register(

@@ -9,8 +9,7 @@ import java.util.List;
 public class CommandContext implements ICommandContext
 {
 
-    private MessageReceivedEvent event;
-    private SlashCommandEvent slashEvent;
+    private final MessageReceivedEvent event;
     private final List<String> args;
 
     public CommandContext(MessageReceivedEvent event, List<String> args)

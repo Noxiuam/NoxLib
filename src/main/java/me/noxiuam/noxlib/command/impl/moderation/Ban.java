@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.moderation;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.*;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -13,7 +14,7 @@ public class Ban extends GenericCommand
 
     public Ban()
     {
-        super("ban", "Bans a member.", NoxLib.getInstance().getPrefix() + "ban <user> <reason>");
+        super("ban", "Bans a member.", NoxLib.getInstance().getPrefix() + "ban <user> <reason>", Tier.BRONZE);
     }
 
     @Override

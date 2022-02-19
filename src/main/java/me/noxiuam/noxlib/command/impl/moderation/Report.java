@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.moderation;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -11,13 +12,13 @@ public class Report extends GenericCommand
 {
     public Report()
     {
-        super("report", "Reports a user for a given reason.", NoxLib.getInstance().getPrefix() + "report <user id> <reason>");
+        super("report", "Reports a user for a given reason.", NoxLib.getInstance().getPrefix() + "report <user id> <reason>", Tier.BRONZE);
     }
 
     @Override
     public void execute(CommandContext ctx)
     {
-        if (!NoxLib.getInstance().getTierHandler().isTopTier(NoxLib.getInstance().getConfiguration().getBotTier()) && NoxLib.getInstance().getReportsChannelId() != null)
+        if (!NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("gold")) && NoxLib.getInstance().getReportsChannelId() == null)
         {
             return;
         }

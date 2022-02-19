@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.music;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -13,7 +14,7 @@ public class Leave extends GenericCommand
 {
     public Leave()
     {
-        super("leave", "Leaves the current Voice Channel.", NoxLib.getInstance().getPrefix() + "leave");
+        super("leave", "Leaves the current Voice Channel.", NoxLib.getInstance().getPrefix() + "leave", Tier.PLATINUM);
     }
 
     @Override

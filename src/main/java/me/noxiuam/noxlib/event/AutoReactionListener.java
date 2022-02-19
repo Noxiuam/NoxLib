@@ -2,6 +2,7 @@ package me.noxiuam.noxlib.event;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.feature.data.AutoReaction;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +18,7 @@ public class AutoReactionListener extends ListenerAdapter
             return;
         }
 
-        if (NoxLib.getInstance().getConfiguration().getBotTier().getName().equalsIgnoreCase("silver") || NoxLib.getInstance().getTierHandler().isTopTier(NoxLib.getInstance().getConfiguration().getBotTier()))
+        if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver")))
         {
             for (AutoReaction ar : NoxLib.getInstance().getAutoReactionHandler().getAutoReactions())
             {

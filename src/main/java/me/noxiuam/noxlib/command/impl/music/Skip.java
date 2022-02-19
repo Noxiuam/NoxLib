@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.command.impl.music;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.GuildMusicManager;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
@@ -16,7 +17,7 @@ public class Skip extends GenericCommand
 {
     public Skip()
     {
-        super("skip", "Skips the currently playing track.", NoxLib.getInstance().getPrefix() + "skip");
+        super("skip", "Skips the currently playing track.", NoxLib.getInstance().getPrefix() + "skip", Tier.PLATINUM);
     }
 
     @Override

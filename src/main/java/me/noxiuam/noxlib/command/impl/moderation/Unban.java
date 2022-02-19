@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.moderation;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 
 import java.util.concurrent.TimeUnit;
@@ -11,7 +12,7 @@ public class Unban extends GenericCommand
 {
     public Unban()
     {
-        super("unban", "Unbans a member from their ID.", NoxLib.getInstance().getPrefix() + "unban <user id>");
+        super("unban", "Unbans a member from their ID.", NoxLib.getInstance().getPrefix() + "unban <user id>", Tier.BRONZE);
     }
 
     @Override

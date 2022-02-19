@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.music;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -14,7 +15,7 @@ public class Join extends GenericCommand
 {
     public Join()
     {
-        super("join", "Makes the bot join the current channel.", NoxLib.getInstance().getPrefix() + "join");
+        super("join", "Makes the bot join the current channel.", NoxLib.getInstance().getPrefix() + "join", Tier.PLATINUM);
     }
 
     @Override

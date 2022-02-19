@@ -25,19 +25,22 @@ public class Config
     }
 
     // Bronze
-    public Config(Tier tier, String prefix)
+    public Config(Tier tier, String prefix, String guildId)
     {
         if (!tier.getName().equalsIgnoreCase("bronze")) return;
         this.setBotTier(tier);
         NoxLib.getInstance().setPrefix(prefix);
+        NoxLib.getInstance().setGuildId(guildId);
+        System.out.println("[NoxLib] Tier has been set to Bronze!");
     }
 
     // Platinum
-    public Config(Tier tier, String prefix, String logChannelId)
+    public Config(Tier tier, String prefix, String guildId, String logChannelId)
     {
         if (!tier.getName().equalsIgnoreCase("platinum")) return;
         this.setBotTier(tier);
         NoxLib.getInstance().setPrefix(prefix);
+        NoxLib.getInstance().setGuildId(guildId);
         NoxLib.getInstance().setLogChannelId(logChannelId);
         System.out.println("[NoxLib] Tier has been set to Platinum, this includes basic logging!");
     }
@@ -57,7 +60,7 @@ public class Config
     // Gold
     public Config(Tier tier, String prefix, String logChannelId, String guildId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId)
     {
-        if (!NoxLib.getInstance().getTierHandler().isTopTier(tier)) return;
+        if (!tier.isAboveOrEqual(Tier.getByName("gold"))) return;
         this.setBotTier(tier);
         NoxLib.getInstance().setPrefix(prefix);
         NoxLib.getInstance().setLogChannelId(logChannelId);
@@ -73,7 +76,7 @@ public class Config
     // Gold with Reports
     public Config(Tier tier, String prefix, String logChannelId, String guildId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId, String reportsChannelId)
     {
-        if (!NoxLib.getInstance().getTierHandler().isTopTier(tier)) return;
+        if (!tier.isAboveOrEqual(Tier.getByName("gold"))) return;
         this.setBotTier(tier);
         NoxLib.getInstance().setPrefix(prefix);
         NoxLib.getInstance().setLogChannelId(logChannelId);

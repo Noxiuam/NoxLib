@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.moderation;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -13,7 +14,7 @@ public class Kick extends GenericCommand
 
     public Kick()
     {
-        super("kick", "Kicks a member.", NoxLib.getInstance().getPrefix() + "kick <user> <reason>");
+        super("kick", "Kicks a member.", NoxLib.getInstance().getPrefix() + "kick <user> <reason>", Tier.BRONZE);
     }
 
     @Override

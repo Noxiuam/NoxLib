@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.fun.game;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +11,7 @@ public class Game extends GenericCommand
 {
     public Game()
     {
-        super("game", "Plays a certain game, based off its ID.", NoxLib.getInstance().getPrefix() + "game <game id>");
+        super("game", "Plays a certain game, based off its ID.", NoxLib.getInstance().getPrefix() + "game <game id>", Tier.GOLD);
     }
 
     @Override

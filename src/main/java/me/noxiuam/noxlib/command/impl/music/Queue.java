@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.command.impl.music;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.GuildMusicManager;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
@@ -18,7 +19,7 @@ public class Queue extends GenericCommand
 {
     public Queue()
     {
-        super("queue", "Lists the current music queue.", NoxLib.getInstance().getPrefix() + "queue");
+        super("queue", "Lists the current music queue.", NoxLib.getInstance().getPrefix() + "queue", Tier.PLATINUM);
     }
 
     @Override

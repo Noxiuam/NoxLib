@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.ticket;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -13,7 +14,7 @@ public class AddUser extends GenericCommand
 
     public AddUser()
     {
-        super("adduser", "Adds a user to the ticket.", NoxLib.getInstance().getPrefix() + "adduser <user id>");
+        super("adduser", "Adds a user to the ticket.", NoxLib.getInstance().getPrefix() + "adduser <user id>", Tier.SILVER);
     }
 
     @Override

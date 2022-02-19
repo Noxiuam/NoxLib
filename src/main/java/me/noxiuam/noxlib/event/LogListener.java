@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.event;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.channel.ChannelCreateEvent;
@@ -31,7 +32,7 @@ public class LogListener extends ListenerAdapter
     @Override
     public void onMessageDelete(@NotNull MessageDeleteEvent event)
     {
-        if (NoxLib.getInstance().getMessageCache().containsKey(event.getMessageIdLong()))
+        if (NoxLib.getInstance().getMessageCache().containsKey(event.getMessageIdLong()) && NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("platinum")))
         {
             Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -49,7 +50,7 @@ public class LogListener extends ListenerAdapter
     @Override
     public void onGuildVoiceJoin(GuildVoiceJoinEvent event)
     {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasBasicLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("platinum"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -64,7 +65,7 @@ public class LogListener extends ListenerAdapter
     @Override
     public void onGuildVoiceMove(GuildVoiceMoveEvent event)
     {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasBasicLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("platinum"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -79,7 +80,7 @@ public class LogListener extends ListenerAdapter
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent event)
     {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasBasicLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("platinum"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -93,7 +94,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildBan(GuildBanEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -105,7 +106,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onUserUpdateName(@NotNull UserUpdateNameEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).getTextChannelById(NoxLib.getInstance().getLogChannelId()).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -119,7 +120,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildMemberUpdateNickname(@NotNull GuildMemberUpdateNicknameEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -133,7 +134,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onChannelCreate(@NotNull ChannelCreateEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -147,7 +148,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onChannelDelete(@NotNull ChannelDeleteEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -161,7 +162,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildVoiceGuildMute(GuildVoiceGuildMuteEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         StringBuilder sb = new StringBuilder();
         boolean muted = event.getMember().getVoiceState().isGuildMuted();
@@ -188,7 +189,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -202,7 +203,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
@@ -215,7 +216,7 @@ public class LogListener extends ListenerAdapter
 
     @Override
     public void onGuildMemberRoleRemove(@NotNull GuildMemberRoleRemoveEvent event) {
-        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getTierHandler().hasAdvancedLogging(NoxLib.getInstance().getConfiguration().getBotTier())) return;
+        if (NoxLib.getInstance().getConfiguration() == null || !NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) return;
 
         Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(

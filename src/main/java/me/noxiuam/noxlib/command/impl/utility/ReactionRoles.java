@@ -3,13 +3,14 @@ package me.noxiuam.noxlib.command.impl.utility;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class ReactionRoles extends GenericCommand
 {
     public ReactionRoles()
     {
-        super("reactionrole", "All reaction role related things can be found within this command.", NoxLib.getInstance().getPrefix() + "reactionrole <subcommand> <value>");
+        super("reactionrole", "All reaction role related things can be found within this command.", NoxLib.getInstance().getPrefix() + "reactionrole <subcommand> <value>", Tier.SILVER);
     }
 
     @Override

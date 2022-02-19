@@ -3,6 +3,7 @@ package me.noxiuam.noxlib.command.impl.ticket;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
+import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -10,7 +11,7 @@ public class RemoveUser extends GenericCommand
 {
     public RemoveUser()
     {
-        super("removeuser", "Removes a user from a ticket.", NoxLib.getInstance().getPrefix() + "removeuser <user id>");
+        super("removeuser", "Removes a user from a ticket.", NoxLib.getInstance().getPrefix() + "removeuser <user id>", Tier.SILVER);
     }
 
     @Override

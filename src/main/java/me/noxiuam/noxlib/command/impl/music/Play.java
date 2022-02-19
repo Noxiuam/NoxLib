@@ -1,6 +1,7 @@
 package me.noxiuam.noxlib.command.impl.music;
 
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
@@ -17,7 +18,7 @@ public class Play extends GenericCommand
 {
     public Play()
     {
-        super("play", "Plays a song.", NoxLib.getInstance().getPrefix() + "play <song>");
+        super("play", "Plays a song.", NoxLib.getInstance().getPrefix() + "play <song>", Tier.PLATINUM);
     }
 
     @Override
