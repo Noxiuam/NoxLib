@@ -32,6 +32,9 @@ public class LogListener extends ListenerAdapter
     @Override
     public void onMessageDelete(@NotNull MessageDeleteEvent event)
     {
+        boolean hasAttachment = NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getAttachmentLinks() != null;
+        boolean hasContent = NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getMessage() != null;
+
         if (NoxLib.getInstance().getMessageCache().containsKey(event.getMessageIdLong()) && NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("platinum")))
         {
             Objects.requireNonNull(event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId())).sendMessageEmbeds(
@@ -39,9 +42,10 @@ public class LogListener extends ListenerAdapter
                             "Message Deleted",
                             "**Author:** " + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getAuthor().getAsMention() + "\n"
                                     + "**Channel:** " + event.getChannel().getAsMention() + "\n"
-                                    + "**Message:** `" + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getMessage().getContentRaw() + "`\n"
+                                    + (hasContent ? "**Message:** `" + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getMessage().getContentRaw() + "`\n" : "")
                                     + "**Message ID:** `" + event.getMessageIdLong() + "`\n"
-                                    + "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
+                                    + "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`"
+                            + (hasAttachment ? "\n**Image(s):** `" + NoxLib.getInstance().getMessageCache().get(event.getMessageIdLong()).getAttachmentLinks() + "`" : ""),
                             NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
             ).queue();
         }
