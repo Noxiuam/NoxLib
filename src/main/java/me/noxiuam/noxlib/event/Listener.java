@@ -9,13 +9,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-
 /*
  * This class will contain all features every bot will contain.
  * This will only include simple functionality.
  */
-public class Listener extends ListenerAdapter
-{
+public class Listener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event)
     {
@@ -38,7 +36,7 @@ public class Listener extends ListenerAdapter
             StringBuilder sb = new StringBuilder();
             for (Message.Attachment image : event.getMessage().getAttachments())
             {
-                sb.append(image.getUrl() + "\n");
+                sb.append(image.getUrl()).append("\n");
             }
 
             if (event.getMessage().getContentRaw().length() != 0)
@@ -49,8 +47,7 @@ public class Listener extends ListenerAdapter
             {
                 NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getAuthor(), sb.toString()));
             }
-        }
-        else
+        } else
         {
             NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getMessage(), event.getAuthor()));
         }
