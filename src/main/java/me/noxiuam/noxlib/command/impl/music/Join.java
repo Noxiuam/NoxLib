@@ -32,7 +32,7 @@ public class Join extends GenericCommand
         {
             ctx.getMessage().replyEmbeds(
                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
-                            "Error Joining Voice Channel",
+                            "Command Failed",
                             "I'm already in use! Please wait or get a moderator to move me.", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
 
             return;
@@ -40,7 +40,7 @@ public class Join extends GenericCommand
 
         if (!memberVoiceState.inAudioChannel())
         {
-            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Joining Voice Channel", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 

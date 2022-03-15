@@ -1,5 +1,6 @@
 package me.noxiuam.noxlib;
 
+import me.noxiuam.noxlib.command.impl.utility.Announcement;
 import me.noxiuam.noxlib.feature.AutoModerationHandler;
 import me.noxiuam.noxlib.feature.AutoReactionHandler;
 import me.noxiuam.noxlib.feature.message.AutoResponseHandler;
@@ -93,7 +94,7 @@ public class NoxLib
         this.commandManager.register(
                 new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(),
                 new Unban(), new Purge(), new Join(), new Play(), new Stop(), new Leave(),
-                new Skip(), new Loop(), new Queue(), new Game(), new Report()
+                new Skip(), new Loop(), new Queue(), new Game(), new Report(), new Announcement()
         );
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");

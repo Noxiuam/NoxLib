@@ -23,19 +23,19 @@ public class Purge extends GenericCommand
     {
         if (!ctx.getMember().hasPermission(Permission.MESSAGE_MANAGE))
         {
-            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You do not have permission for this!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "You do not have permission for this!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (ctx.getArgs().isEmpty())
         {
-            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "You did not specify any messages to delete! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         if (Integer.parseInt(ctx.getArgs().get(0)) > 100 || Integer.parseInt(ctx.getArgs().get(0)) < 1)
         {
-            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Error Deleting Messages", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
+            ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "Only 1-100 messages can be deleted at a time!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m ->
                     m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }

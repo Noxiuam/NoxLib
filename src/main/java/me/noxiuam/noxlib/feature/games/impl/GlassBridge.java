@@ -19,7 +19,7 @@ public class GlassBridge extends Game
     @Override
     public void init(CommandContext ctx, Member member)
     {
-        GlassBridgeData gameInit = new GlassBridgeData(member.getIdLong(), 10, false, ":ice_cube:" + ":ice_cube:");
+        GlassBridgeData gameInit = new GlassBridgeData(member.getIdLong(), 10, 1, false, ":ice_cube:" + ":ice_cube:");
         NoxLib.getInstance().getGameFramework().getBridgeData().add(gameInit);
         this.ctx = ctx;
         this.run(ctx, member);
@@ -33,7 +33,7 @@ public class GlassBridge extends Game
         ctx.getMessage().replyEmbeds(msg.createEmbedWithAuthor(
                 this.getName(),
                 "You have two pieces of glass in front of you.\n\nYou must jump through the rest as quickly as possible.\n\n" + game.getGameBoard(),
-                "Levels Left: " + game.getStagesLeft()).build()).queue(m ->
+                "Round: " + game.getCurrentRound()).build()).queue(m ->
         {
             m.addReaction("\u2B05").queue();
             m.addReaction("\u27A1").queue();
@@ -46,13 +46,16 @@ public class GlassBridge extends Game
         GlassBridgeData game = this.getGame(member.getIdLong());
         boolean movingRight = choice.equalsIgnoreCase("➡");
 
-        game.setWillBreak(new Random().nextBoolean());
+        game.setGoingToBreak(new Random().nextBoolean());
         game.setStagesLeft(game.getStagesLeft() - 1);
 
-        if (Objects.requireNonNull(game).isWillBreak())
+        // Better chances that the player will survive.
+        if (movingRight && game.isGoingToBreak()) game.setGoingToBreak(new Random().nextBoolean());
+
+        if (Objects.requireNonNull(game).isGoingToBreak())
         {
             game.setGameBoard((movingRight ? ":ice_cube: " + ":x:" : ":x:" + " :ice_cube:"));
-            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", but it broke and you fell to your death.\n\n" + game.getGameBoard(), "GAME OVER (Levels Left: " + game.getStagesLeft() + ")").build()).queue();
+            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", but it broke and you fell to your death.\n\n" + game.getGameBoard(), "GAME OVER (You Survived: " + game.getCurrentRound() + " Round" + (game.getCurrentRound() == 1 ? "" : "s") + ")").build()).queue();
             this.endGame(member);
         }
         else
@@ -67,8 +70,9 @@ public class GlassBridge extends Game
                 return;
             }
 
+            game.currentRound++;
             game.setGameBoard(":ice_cube: :ice_cube:");
-            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor("Please wait for the next level...", "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", and luckily, you lived.\n\n" + game.getGameBoard(), "Levels Left: " + game.getStagesLeft()).build()).queue(m -> m.editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have two pieces of glass in front of you.\n\nYou must jump through the rest as quickly as possible.\n\n" + game.getGameBoard(), "Levels Left: " + game.getStagesLeft()).build()).queueAfter(3, TimeUnit.SECONDS));
+            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor("Please wait for the next level...", "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", and luckily, you lived.\n\n" + game.getGameBoard(), "Round: " + game.getCurrentRound()).build()).queue(m -> m.editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have two pieces of glass in front of you.\n\nYou must jump through the rest as quickly as possible.\n\n" + game.getGameBoard(), "Round: " + game.getCurrentRound()).build()).queueAfter(3, TimeUnit.SECONDS));
         }
     }
 

@@ -7,6 +7,7 @@ public class GlassBridgeData
 {
     private long memberId;
     private int stagesLeft;
-    private boolean willBreak;
+    public int currentRound;
+    private boolean goingToBreak;
     private String gameBoard;
 }
