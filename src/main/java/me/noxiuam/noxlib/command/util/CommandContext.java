@@ -1,7 +1,6 @@
 package me.noxiuam.noxlib.command.util;
 
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;

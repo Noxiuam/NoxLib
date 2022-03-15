@@ -14,7 +14,7 @@ public class ImageHelper
     public File createRandomImage(int width, int height) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        File file = new File("C:\\Users\\bsloa\\OneDrive\\Documents\\Noxiuam\\Bots\\3301 Bot\\image\\" + new Random().nextInt() + ".png");
+        File file = new File("image\\" + new Random().nextInt() + ".png");
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)

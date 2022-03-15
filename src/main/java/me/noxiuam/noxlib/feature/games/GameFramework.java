@@ -2,8 +2,7 @@ package me.noxiuam.noxlib.feature.games;
 
 import lombok.Getter;
 import me.noxiuam.noxlib.command.util.CommandContext;
-import me.noxiuam.noxlib.util.data.user.GenericGameProfile;
-import me.noxiuam.noxlib.util.data.user.GlassBridgeData;
+import me.noxiuam.noxlib.util.data.user.*;
 import me.noxiuam.noxlib.feature.games.impl.GlassBridge;
 import net.dv8tion.jda.api.entities.*;
 
@@ -15,7 +14,7 @@ public class GameFramework
     public final List<Game> registeredGames = new ArrayList<>();
     public final List<String> gamePieces = new ArrayList<>();
     public final List<GenericGameProfile> gameProfiles = new ArrayList<>();
-    public final List<GlassBridgeData> bridgeData = new ArrayList<>(); // Had to do a custom data class for this to work
+    public final List<GlassBridgeData> bridgeData = new ArrayList<>(); // Had to do a custom data Object for this to work.
 
     public final Map<Member, Integer> playerList = new HashMap<>(); // Will be used to collect player's data later for commands for users.
     public final Map<Member, Message> runningGames = new HashMap<>();

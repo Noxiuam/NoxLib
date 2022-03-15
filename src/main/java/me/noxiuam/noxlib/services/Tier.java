@@ -5,17 +5,15 @@ import lombok.Getter;
 @Getter
 public enum Tier
 {
-    GOLD("gold", 50),
-    SILVER("silver", 35),
-    PLATINUM("platinum", 25),
-    BRONZE("bronze", 15);
+    GOLD("gold"),
+    SILVER("silver"),
+    PLATINUM("platinum"),
+    BRONZE("bronze");
 
     private final String name;
-    private final int price;
-    Tier(String tierName, int price)
+    Tier(String tierName)
     {
         this.name = tierName;
-        this.price = price;
     }
 
     public static Tier getByName(String name)
@@ -28,8 +26,8 @@ public enum Tier
         return BRONZE;
     }
 
-    public boolean isAboveOrEqual(Tier rank)
+    public boolean isAboveOrEqual(Tier tier)
     {
-        return rank.ordinal() >= this.ordinal();
+        return tier.ordinal() >= this.ordinal();
     }
 }
