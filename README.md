@@ -16,7 +16,7 @@ To use this in creating a bot, there are a few things you need to understand fir
 
 1. There are tiers for bots, this is so it can have either everything at once, or limited features for those who only
    want a few things.
-2. This bot was made to be used only on one server, not multiple at a time.
+2. This library was made to be used only on one server, not multiple at a time.
 
 **Setting up the actual bot is very straight forward.**
 
