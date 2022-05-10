@@ -1,15 +1,16 @@
 package me.noxiuam.noxlib.config;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.services.Tier;
 
 /*
  * All of these values should be set in the bot.
  */
-@Getter @Setter
-public class Config
-{
+@Getter
+@Setter
+public class Config {
     // Absolutely required to be set, this is not automatically set yet!
     public Tier botTier;
 
@@ -19,17 +20,8 @@ public class Config
     public String defaultTicketImage;
     public String defaultTicketEmoteId;
 
-    public void setupTicketValues(String defaultTicketTitle, String defaultTicketMessage, String defaultTicketImage, String defaultTicketEmoteId)
-    {
-        this.defaultTicketTitle = defaultTicketTitle;
-        this.defaultTicketMessage = defaultTicketMessage;
-        this.defaultTicketImage = defaultTicketImage;
-        this.defaultTicketEmoteId = defaultTicketEmoteId;
-    }
-
     // Bronze
-    public Config(Tier tier, String prefix, String guildId)
-    {
+    public Config(Tier tier, String prefix, String guildId) {
         if (!tier.getName().equalsIgnoreCase("bronze")) return;
 
         this.setBotTier(tier);
@@ -41,8 +33,7 @@ public class Config
     }
 
     // Platinum
-    public Config(Tier tier, String prefix, String guildId, String logChannelId)
-    {
+    public Config(Tier tier, String prefix, String guildId, String logChannelId) {
         if (!tier.getName().equalsIgnoreCase("platinum")) return;
 
         this.setBotTier(tier);
@@ -55,13 +46,13 @@ public class Config
     }
 
     // Silver
-    public Config(Tier tier, String prefix, String logChannelId, String ticketCategoryId, String ticketReactChannelId)
-    {
+    public Config(Tier tier, String prefix, String guildId, String logChannelId, String ticketCategoryId, String ticketReactChannelId) {
         if (!tier.getName().equalsIgnoreCase("silver")) return;
 
         this.setBotTier(tier);
 
         NoxLib.getInstance().setPrefix(prefix);
+        NoxLib.getInstance().setGuildId(guildId);
         NoxLib.getInstance().setLogChannelId(logChannelId);
         NoxLib.getInstance().setTicketCategoryId(ticketCategoryId);
         NoxLib.getInstance().setTicketReactChannelId(ticketReactChannelId);
@@ -70,8 +61,7 @@ public class Config
     }
 
     // Gold
-    public Config(Tier tier, String prefix, String logChannelId, String guildId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId)
-    {
+    public Config(Tier tier, String prefix, String guildId, String logChannelId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId) {
         if (!tier.isAboveOrEqual(Tier.getByName("gold"))) return;
 
         this.setBotTier(tier);
@@ -89,8 +79,7 @@ public class Config
     }
 
     // Gold with Reports
-    public Config(Tier tier, String prefix, String logChannelId, String guildId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId, String reportsChannelId)
-    {
+    public Config(Tier tier, String prefix, String guildId, String logChannelId, String ticketCategoryId, String ticketReactChannelId, String verificationKeyword, String verifiedRoleId, String verificationChannelId, String reportsChannelId) {
         if (!tier.isAboveOrEqual(Tier.getByName("gold"))) return;
 
         this.setBotTier(tier);
@@ -106,5 +95,12 @@ public class Config
         NoxLib.getInstance().setReportsChannelId(reportsChannelId);
 
         System.out.println("[NoxLib] Tier has been set to " + tier.getName().substring(0, 1).toUpperCase() + tier.getName().substring(1) + ", this is a high tier with reports!");
+    }
+
+    public void setupTicketValues(String defaultTicketTitle, String defaultTicketMessage, String defaultTicketImage, String defaultTicketEmoteId) {
+        this.defaultTicketTitle = defaultTicketTitle;
+        this.defaultTicketMessage = defaultTicketMessage;
+        this.defaultTicketImage = defaultTicketImage;
+        this.defaultTicketEmoteId = defaultTicketEmoteId;
     }
 }

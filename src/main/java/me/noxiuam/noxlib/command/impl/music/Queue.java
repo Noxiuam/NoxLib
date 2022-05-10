@@ -1,35 +1,30 @@
 package me.noxiuam.noxlib.command.impl.music;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.noxiuam.noxlib.NoxLib;
+import me.noxiuam.noxlib.command.GenericCommand;
+import me.noxiuam.noxlib.command.util.CommandContext;
 import me.noxiuam.noxlib.services.Tier;
 import me.noxiuam.noxlib.util.audio.GuildMusicManager;
 import me.noxiuam.noxlib.util.audio.PlayerManager;
-import me.noxiuam.noxlib.command.GenericCommand;
-import me.noxiuam.noxlib.command.util.CommandContext;
-
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Queue extends GenericCommand
-{
-    public Queue()
-    {
+public class Queue extends GenericCommand {
+    public Queue() {
         super("queue", "Lists the current music queue.", NoxLib.getInstance().getPrefix() + "queue", Tier.PLATINUM);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
         final BlockingQueue<AudioTrack> queue = musicManager.scheduler.queue;
 
-        if (queue.isEmpty())
-        {
+        if (queue.isEmpty()) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "The queue is currently empty, search for a song to fill it up!", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
@@ -38,8 +33,7 @@ public class Queue extends GenericCommand
         final List<AudioTrack> trackList = new ArrayList<>(queue);
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <  trackCount; i++)
-        {
+        for (int i = 0; i < trackCount; i++) {
             final AudioTrack track = trackList.get(i);
             final AudioTrackInfo info = track.getInfo();
 
@@ -50,8 +44,7 @@ public class Queue extends GenericCommand
                     .append("__\n\n");
         }
 
-        if (trackList.size() > trackCount)
-        {
+        if (trackList.size() > trackCount) {
             sb.append("And `")
                     .append(trackList.size() - trackCount)
                     .append("` more...");
@@ -60,8 +53,7 @@ public class Queue extends GenericCommand
         ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Current Music Queue", sb.toString(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue();
     }
 
-    private String formatTime(long timeInMillis)
-    {
+    private String formatTime(long timeInMillis) {
         final long hours = timeInMillis / TimeUnit.HOURS.toMillis(1);
         final long minutes = timeInMillis / TimeUnit.MINUTES.toMillis(1);
         final long seconds = timeInMillis % TimeUnit.MINUTES.toMillis(1) / TimeUnit.SECONDS.toMillis(1);

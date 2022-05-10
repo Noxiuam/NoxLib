@@ -2,32 +2,29 @@ package me.noxiuam.noxlib.feature.games.impl;
 
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.util.CommandContext;
-import me.noxiuam.noxlib.util.data.user.GlassBridgeData;
 import me.noxiuam.noxlib.feature.games.Game;
+import me.noxiuam.noxlib.util.data.user.GlassBridgeData;
 import net.dv8tion.jda.api.entities.Member;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class GlassBridge extends Game
-{
-    public GlassBridge()
-    {
+public class GlassBridge extends Game {
+    public GlassBridge() {
         super("Glass Bridge [Squid Game Series]", 1, "\u2B05", "\u27A1");
     }
 
     @Override
-    public void init(CommandContext ctx, Member member)
-    {
-        GlassBridgeData gameInit = new GlassBridgeData(member.getIdLong(), 10, 1, false, ":ice_cube:" + ":ice_cube:");
+    public void init(CommandContext ctx, Member member) {
+        GlassBridgeData gameInit = new GlassBridgeData(1, member.getIdLong(), 10, false, ":ice_cube:" + ":ice_cube:");
         NoxLib.getInstance().getGameFramework().getBridgeData().add(gameInit);
         this.ctx = ctx;
         this.run(ctx, member);
     }
 
     @Override
-    public void run(CommandContext ctx, Member member)
-    {
+    public void run(CommandContext ctx, Member member) {
         GlassBridgeData game = this.getGame(member.getIdLong());
 
         ctx.getMessage().replyEmbeds(msg.createEmbedWithAuthor(
@@ -42,8 +39,7 @@ public class GlassBridge extends Game
     }
 
     @Override
-    public void handleGameInput(String choice, Member member)
-    {
+    public void handleGameInput(String choice, Member member) {
         GlassBridgeData game = this.getGame(member.getIdLong());
         boolean movingRight = choice.equalsIgnoreCase("➡");
 
@@ -53,16 +49,12 @@ public class GlassBridge extends Game
         // Better chances that the player will survive.
         if (movingRight && game.isGoingToBreak()) game.setGoingToBreak(new Random().nextBoolean());
 
-        if (Objects.requireNonNull(game).isGoingToBreak())
-        {
+        if (Objects.requireNonNull(game).isGoingToBreak()) {
             game.setGameBoard((movingRight ? ":ice_cube: " + ":x:" : ":x:" + " :ice_cube:"));
-            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", but it broke and you fell to your death.\n\n" + game.getGameBoard(), "GAME OVER (You Survived: " + game.getCurrentRound() + " Round" + (game.getCurrentRound() == 1 ? "" : "s") + ")").build()).queue();
+            NoxLib.getInstance().getGameFramework().getRunningGames().get(member).editMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithAuthor(this.getName(), "You have jumped to the tile to the " + (movingRight ? "right" : "left") + ", but it broke and you fell to your death.\n\n" + game.getGameBoard(), "GAME OVER (You Survived " + game.getCurrentRound() + " Round" + (game.getCurrentRound() == 1 ? "" : "s") + ")").build()).queue();
             this.endGame(member);
-        }
-        else
-        {
-            if (Objects.requireNonNull(game).getStagesLeft() == 0)
-            {
+        } else {
+            if (Objects.requireNonNull(game).getStagesLeft() == 0) {
                 NoxLib.getInstance().getGameFramework().getRunningGames().get(member).removeReaction("\u2B05").queue();
                 NoxLib.getInstance().getGameFramework().getRunningGames().get(member).removeReaction("\u27A1").queue();
 
@@ -77,8 +69,7 @@ public class GlassBridge extends Game
         }
     }
 
-    private GlassBridgeData getGame(long memberId)
-    {
+    private GlassBridgeData getGame(long memberId) {
         return NoxLib.getInstance().getGameFramework().getBridgeData().stream().filter(game -> game.getMemberId() == memberId).findFirst().orElse(null);
     }
 }

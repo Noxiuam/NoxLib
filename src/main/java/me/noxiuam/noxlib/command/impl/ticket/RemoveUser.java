@@ -7,20 +7,16 @@ import me.noxiuam.noxlib.services.Tier;
 import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class RemoveUser extends GenericCommand
-{
-    public RemoveUser()
-    {
+public class RemoveUser extends GenericCommand {
+    public RemoveUser() {
         super("removeuser", "Removes a user from a ticket.", NoxLib.getInstance().getPrefix() + "removeuser <user id>", Tier.SILVER);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         TextChannel channel = NoxLib.getInstance().getBotJda().getTextChannelById(ctx.getChannel().getId());
 
-        if (!ctx.getChannel().getName().startsWith("ticket-"))
-        {
+        if (!ctx.getChannel().getName().startsWith("ticket-")) {
             return;
         }
 

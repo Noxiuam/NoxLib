@@ -6,15 +6,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-public class ProcessUtil
-{
+public class ProcessUtil {
 
     /*
      * Creates a new ProcessBuilder, gets the InputStream from it and then returns the output in the form of a StringBuilder.
      */
     @SneakyThrows
-    public StringBuilder buildProcessAndGetInput(String[] args, int buffer)
-    {
+    public StringBuilder buildProcessAndGetInput(String[] args, int buffer) {
         ProcessBuilder pb = new ProcessBuilder(args);
         pb.directory(new File("C:\\Windows\\System32\\"));
         pb.redirectErrorStream(true);
@@ -30,8 +28,7 @@ public class ProcessUtil
     /*
      * Creates a new ProcessBuilder and returns it, aya is gay.
      */
-    public ProcessBuilder createNewProcessBuilder(String[] args)
-    {
+    public ProcessBuilder createNewProcessBuilder(String[] args) {
         return new ProcessBuilder(args);
     }
 
@@ -39,8 +36,7 @@ public class ProcessUtil
      * Runs a command from cmd.exe and then returns the output in the form of a StringBuilder.
      */
     @SneakyThrows
-    public StringBuilder runTerminalCommandAndGetOutput(String[] args, int buffer)
-    {
+    public StringBuilder runTerminalCommandAndGetOutput(String[] args, int buffer) {
         ProcessBuilder pb = new ProcessBuilder(args);
         pb.directory(new File("C:\\Windows\\System32\\"));
         pb.redirectErrorStream(true);

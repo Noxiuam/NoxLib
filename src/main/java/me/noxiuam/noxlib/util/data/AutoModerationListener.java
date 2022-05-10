@@ -5,22 +5,18 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-public class AutoModerationListener extends ListenerAdapter
-{
+public class AutoModerationListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfiguration() == null)
-        {
+        if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfiguration() == null) {
             return;
         }
 
         final String message = event.getMessage().getContentRaw();
 
-        for (String word : NoxLib.getInstance().getAutoModerationHandler().getBlacklistedWords())
-        {
-            if (message.contains(word))
-            {
+        for (String word : NoxLib.getInstance().getAutoModerationHandler().getBlacklistedWords()) {
+            if (message.contains(word)) {
                 event.getMessage().delete().queue();
                 event.getGuild().getTextChannelById(NoxLib.getInstance().getLogChannelId()).sendMessageEmbeds(
                         NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(

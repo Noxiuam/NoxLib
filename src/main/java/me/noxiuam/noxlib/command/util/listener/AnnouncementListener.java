@@ -10,29 +10,23 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class AnnouncementListener extends ListenerAdapter
-{
+public class AnnouncementListener extends ListenerAdapter {
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event)
-    {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         int index = Integer.MAX_VALUE;
         if (Announcement.INSTANCE.getRunningAnnouncements().containsKey(Objects.requireNonNull(event.getMember()).getId()))
             index = Announcement.INSTANCE.getRunningAnnouncements().get(event.getMember().getId()).getIndex();
 
-        if (Announcement.INSTANCE.getRunningAnnouncements().containsKey(Objects.requireNonNull(event.getMember()).getId()))
-        {
+        if (Announcement.INSTANCE.getRunningAnnouncements().containsKey(Objects.requireNonNull(event.getMember()).getId())) {
             if (event.getMessage().getContentRaw().equalsIgnoreCase("$announcement start")) return;
 
-            if (index == 0)
-            {
+            if (index == 0) {
                 Announcement.INSTANCE.getRunningAnnouncements().put(event.getMember().getId(), new GenericAnnouncement(event.getChannel().getId(), 1, event.getMessage().getContentRaw(), ""));
 
                 EmbedBuilder descriptionEmbed = NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("And for the final part of it.",
                         "Give the announcement a nice description, the announcement will send once you've sent it!", NoxLib.getInstance().getImageDatabase().getToolImage());
                 event.getMessage().replyEmbeds(descriptionEmbed.build()).queue();
-            }
-            else if (index == 1)
-            {
+            } else if (index == 1) {
                 String title = Announcement.INSTANCE.getRunningAnnouncements().get(event.getMember().getId()).getTitle();
 
                 Announcement.INSTANCE.getRunningAnnouncements().put(event.getMember().getId(), new GenericAnnouncement(event.getChannel().getId(), 2, title, event.getMessage().getContentRaw()));

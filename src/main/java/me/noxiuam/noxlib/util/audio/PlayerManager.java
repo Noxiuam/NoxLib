@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class PlayerManager
-{
+public class PlayerManager {
     private static PlayerManager INSTANCE;
 
     private final Map<Long, GuildMusicManager> musicManagers;
@@ -29,6 +28,14 @@ public class PlayerManager
 
         AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
+    }
+
+    public static PlayerManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PlayerManager();
+        }
+
+        return INSTANCE;
     }
 
     public GuildMusicManager getMusicManager(Guild guild) {
@@ -62,22 +69,12 @@ public class PlayerManager
             }
 
             @Override
-            public void noMatches()
-            {
+            public void noMatches() {
             }
 
             @Override
-            public void loadFailed(FriendlyException exception)
-            {
+            public void loadFailed(FriendlyException exception) {
             }
         });
-    }
-
-    public static PlayerManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PlayerManager();
-        }
-
-        return INSTANCE;
     }
 }

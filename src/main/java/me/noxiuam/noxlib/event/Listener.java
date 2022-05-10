@@ -15,40 +15,30 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Listener extends ListenerAdapter {
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event)
-    {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.isWebhookMessage() || event.getMember().getUser().isBot()) return;
 
-        if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver")))
-        {
-            for (AutoReponseMessage msg : NoxLib.getInstance().getAutoResponseHandler().getAutoResponses())
-            {
-                if (msg.getTrigger().equalsIgnoreCase(event.getMessage().getContentRaw()))
-                {
+        if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) {
+            for (AutoReponseMessage msg : NoxLib.getInstance().getAutoResponseHandler().getAutoResponses()) {
+                if (msg.getTrigger().equalsIgnoreCase(event.getMessage().getContentRaw())) {
                     event.getMessage().reply(NoxLib.getInstance().getAutoResponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
                 }
             }
         }
 
 
-        if (!event.getMessage().getAttachments().isEmpty())
-        {
+        if (!event.getMessage().getAttachments().isEmpty()) {
             StringBuilder sb = new StringBuilder();
-            for (Message.Attachment image : event.getMessage().getAttachments())
-            {
+            for (Message.Attachment image : event.getMessage().getAttachments()) {
                 sb.append(image.getUrl()).append("\n");
             }
 
-            if (event.getMessage().getContentRaw().length() != 0)
-            {
-                NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getMessage(), event.getAuthor(), sb.toString()));
-            }
-            else
-            {
+            if (event.getMessage().getContentRaw().length() != 0) {
+                NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getAuthor(), event.getMessage(), sb.toString()));
+            } else {
                 NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getAuthor(), sb.toString()));
             }
-        } else
-        {
+        } else {
             NoxLib.getInstance().getMessageCache().put(event.getMessageIdLong(), new DeletedMessage(event.getMessage(), event.getAuthor()));
         }
 

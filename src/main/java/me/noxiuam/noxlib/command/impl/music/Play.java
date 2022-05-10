@@ -1,11 +1,10 @@
 package me.noxiuam.noxlib.command.impl.music;
 
 import me.noxiuam.noxlib.NoxLib;
-import me.noxiuam.noxlib.services.Tier;
-import me.noxiuam.noxlib.util.audio.PlayerManager;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
-
+import me.noxiuam.noxlib.services.Tier;
+import me.noxiuam.noxlib.util.audio.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -14,16 +13,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
-public class Play extends GenericCommand
-{
-    public Play()
-    {
+public class Play extends GenericCommand {
+    public Play() {
         super("play", "Plays a song.", NoxLib.getInstance().getPrefix() + "play <song>", Tier.PLATINUM);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         final MessageChannel channel = ctx.getChannel();
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();

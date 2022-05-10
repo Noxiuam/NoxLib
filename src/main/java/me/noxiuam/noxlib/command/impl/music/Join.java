@@ -11,16 +11,13 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.util.concurrent.TimeUnit;
 
-public class Join extends GenericCommand
-{
-    public Join()
-    {
+public class Join extends GenericCommand {
+    public Join() {
         super("join", "Makes the bot join the current channel.", NoxLib.getInstance().getPrefix() + "join", Tier.PLATINUM);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         final Member member = ctx.getMember();
@@ -28,8 +25,7 @@ public class Join extends GenericCommand
         final AudioManager audioManager = ctx.getGuild().getAudioManager();
         final AudioChannel memberChannel = memberVoiceState.getChannel();
 
-        if (selfVoiceState.inAudioChannel())
-        {
+        if (selfVoiceState.inAudioChannel()) {
             ctx.getMessage().replyEmbeds(
                     NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                             "Command Failed",
@@ -38,8 +34,7 @@ public class Join extends GenericCommand
             return;
         }
 
-        if (!memberVoiceState.inAudioChannel())
-        {
+        if (!memberVoiceState.inAudioChannel()) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "You need to be in a Voice Channel first!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }

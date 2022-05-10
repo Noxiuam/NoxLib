@@ -26,8 +26,6 @@ If you're wanting to create a bot with just simple logging using NoxLib, here is
 import lombok.*;
 import net.dv8tion.jda.api.*;
 
-import java.util.*;
-
 import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.config.Config;
 import me.noxiuam.noxlib.services.Tier;
@@ -35,27 +33,27 @@ import me.noxiuam.noxlib.event.*;
 
 public class Main {
 
-    public JDA jda;
+   public JDA jda;
 
-    @SneakyThrows
-    public Main() {
-        this.jda = JDABuilder.createDefault("YOUR_TOKEN_HERE")
-                .setStatus(OnlineStatus.ONLINE)
-                // Only include these listeners if you need them.
-                .addEventListeners(new Listener(), new LogListener())
-                .build().awaitReady();
+   @SneakyThrows
+   public Main() {
+      this.jda = JDABuilder.createDefault("YOUR_TOKEN_HERE")
+              .setStatus(OnlineStatus.ONLINE)
+              // Only include these listeners if you need them.
+              .addEventListeners(new Listener(), new LogListener())
+              .build().awaitReady();
 
-        // Initialize NoxLib
-        new NoxLib();
-        // Set the NoxLib's JDA, this is accessed for some features
-        NoxLib.getInstance().setBotJda(this.jda);
-        // Set the configuration for NoxLib, this is mandatory
-        NoxLib.getInstance().configuration = new Config(Tier.PLATINUM, "YOUR_PREFIX", "YOUR_GUILD_ID", "YOUR_LOG_CHANNEL_ID");
-    }
+      // Initialize NoxLib
+      new NoxLib();
+      // Set the NoxLib's JDA, this is accessed for some features
+      NoxLib.getInstance().setBotJda(this.jda);
+      // Set the configuration for NoxLib, this is mandatory
+      NoxLib.getInstance().configuration = new Config(Tier.PLATINUM, "YOUR_PREFIX", "YOUR_GUILD_ID", "YOUR_LOG_CHANNEL_ID");
+   }
 
-    public static void main(String[] args) {
-        new Main();
-    }
+   public static void main(String[] args) {
+      new Main();
+   }
 }
 ```
 
@@ -82,22 +80,18 @@ import me.noxiuam.noxlib.NoxLib;
 import me.noxiuam.noxlib.command.GenericCommand;
 import me.noxiuam.noxlib.command.util.CommandContext;
 import me.noxiuam.noxlib.services.Tier;
-import net.dv8tion.jda.api.entities.Icon;
-
-import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 public class TestCommand extends GenericCommand {
 
-    public TestCommand() {
-        super("hello", "An example command.", NoxLib.getInstance().getPrefix() + this.getName(), Tier.BRONZE);
-    }
-    
-    @Override
-    @SneakyThrows
-    public void execute(CommandContext ctx) {
-        ctx.getChannel().sendMessage("Hello World!").queue();
-    }
+   public TestCommand() {
+      super("hello", "An example command.", NoxLib.getInstance().getPrefix() + this.getName(), Tier.BRONZE);
+   }
+
+   @Override
+   @SneakyThrows
+   public void execute(CommandContext ctx) {
+      ctx.getChannel().sendMessage("Hello World!").queue();
+   }
 }
 ```
 
@@ -112,6 +106,7 @@ NoxLib has its own custom game support, to see how they are made, it's best to s
 A custom game must be registered in the `GameFramework` class, and must also extend `Game`.
 
 Here is an example game:
+
 ```java
 import me.noxiuam.noxlib.command.util.CommandContext;
 import me.noxiuam.noxlib.feature.games.Game;
@@ -119,26 +114,25 @@ import net.dv8tion.jda.api.entities.Member;
 
 public class TestGame extends Game {
 
-    public TestGame()
-    {
-        // Name, ID, and two unicode reactions.
-        super("Test Game", 1, "\u2B05", "\u27A1");
-    }
-    
-    @Override
-    public void init(CommandContext ctx, Member member) {
-        // Game setup logic
-       this.run(ctx, member);
-    }
+   public TestGame() {
+      // Name, ID, and two unicode reactions.
+      super("Test Game", 1, "\u2B05", "\u27A1");
+   }
 
-    @Override
-    public void run(CommandContext ctx, Member member) {
-        // More game logic, only gets ran once after init().
-    }
+   @Override
+   public void init(CommandContext ctx, Member member) {
+      // Game setup logic
+      this.run(ctx, member);
+   }
 
-    @Override
-    public void handleGameInput(String unicode, Member member) {
-        // Main game logic, use this for handling inputs, game movement, etc.
-    }
+   @Override
+   public void run(CommandContext ctx, Member member) {
+      // More game logic, only gets ran once after init().
+   }
+
+   @Override
+   public void handleGameInput(String unicode, Member member) {
+      // Main game logic, use this for handling inputs, game movement, etc.
+   }
 }
 ```

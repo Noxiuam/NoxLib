@@ -10,24 +10,20 @@ import net.dv8tion.jda.api.entities.Member;
 
 import java.util.concurrent.TimeUnit;
 
-public class Leave extends GenericCommand
-{
-    public Leave()
-    {
+public class Leave extends GenericCommand {
+    public Leave() {
         super("leave", "Leaves the current Voice Channel.", NoxLib.getInstance().getPrefix() + "leave", Tier.PLATINUM);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         final AudioChannel memberChannel = memberVoiceState.getChannel();
 
-        if (!selfVoiceState.inAudioChannel())
-        {
+        if (!selfVoiceState.inAudioChannel()) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Command Failed", "I am not in a Voice Channel, so I can not leave!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }

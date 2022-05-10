@@ -1,16 +1,18 @@
 package me.noxiuam.noxlib.feature;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import me.noxiuam.noxlib.NoxLib;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 
-import java.util.*;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-@Setter @Getter
-public class VerificationHandler
-{
+@Setter
+@Getter
+public class VerificationHandler {
     public boolean reactionVerificationEnabled;
     public String verificationEmoteId;
 
@@ -23,47 +25,39 @@ public class VerificationHandler
     public String verificationDescription;
     public String verificationImage;
 
-    public void makeVerificationRequest(String keyword, Member member)
-    {
-        if (keyword.equalsIgnoreCase(this.verificationKeyword))
-        {
+    public void makeVerificationRequest(String keyword, Member member) {
+        if (keyword.equalsIgnoreCase(this.verificationKeyword)) {
             this.verifyMember(member);
             return;
         }
 
-        if (!member.hasPermission(Permission.ADMINISTRATOR))
-        {
+        if (!member.hasPermission(Permission.ADMINISTRATOR)) {
             member.getUser().openPrivateChannel().queue(m -> m.sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Failed Verification", "You've failed verification, and were kicked from the server.\n\nPlease try again.", NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue());
             member.kick("Failed Verification").queue();
         }
     }
 
-    private void verifyMember(Member member)
-    {
+    private void verifyMember(Member member) {
         Role role = Objects.requireNonNull(NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId())).getRoleById(this.verifiedRoleId);
         NoxLib.getInstance().getBotJda().getGuildById(NoxLib.getInstance().getGuildId()).addRoleToMember(member, role).queue();
 
-        if (!this.isReactionVerificationEnabled())
-        {
+        if (!this.isReactionVerificationEnabled()) {
             NoxLib.getInstance().getBotJda().getTextChannelById(NoxLib.getInstance().getVerificationHandler().getVerificationChannelId()).sendMessageEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(this.verificationTitle, this.verificationDescription, this.verificationImage).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
         }
     }
 
-    public void makeVerificationRequest(Member member)
-    {
+    public void makeVerificationRequest(Member member) {
         this.verifyMember(member);
     }
 
     // Emote Verification Only
-    public void setup(boolean reactionVerificationEnabled, String verificationEmoteId)
-    {
+    public void setup(boolean reactionVerificationEnabled, String verificationEmoteId) {
         this.setReactionVerificationEnabled(reactionVerificationEnabled);
         this.setVerificationEmoteId(verificationEmoteId);
     }
 
     // Word Verification Only
-    public void setup(boolean reactionVerificationEnabled, String title, String desc, String image)
-    {
+    public void setup(boolean reactionVerificationEnabled, String title, String desc, String image) {
         this.setReactionVerificationEnabled(reactionVerificationEnabled);
         this.setVerificationTitle(title);
         this.setVerificationDescription(desc);

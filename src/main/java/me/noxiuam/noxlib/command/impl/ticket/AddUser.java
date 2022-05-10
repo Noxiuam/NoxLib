@@ -9,26 +9,21 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.concurrent.TimeUnit;
 
-public class AddUser extends GenericCommand
-{
+public class AddUser extends GenericCommand {
 
-    public AddUser()
-    {
+    public AddUser() {
         super("adduser", "Adds a user to the ticket.", NoxLib.getInstance().getPrefix() + "adduser <user id>", Tier.SILVER);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
+    public void execute(CommandContext ctx) {
         TextChannel channel = NoxLib.getInstance().getBotJda().getTextChannelById(ctx.getChannel().getIdLong());
 
-        if (!ctx.getChannel().getName().startsWith("ticket-"))
-        {
+        if (!ctx.getChannel().getName().startsWith("ticket-")) {
             return;
         }
 
-        if (ctx.getArgs().isEmpty())
-        {
+        if (ctx.getArgs().isEmpty()) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Incorrect Usage!", "Usage: " + this.getDescription(), NoxLib.getInstance().getImageDatabase().getErrorImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }

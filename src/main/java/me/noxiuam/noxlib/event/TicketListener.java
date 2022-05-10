@@ -9,40 +9,32 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class TicketListener extends ListenerAdapter
-{
-    @Setter public static String memberId = "";
+public class TicketListener extends ListenerAdapter {
+    @Setter
+    public static String memberId = "";
 
     @Override
-    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event)
-    {
-        if (Objects.requireNonNull(event.getUser()).isBot())
-        {
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
+        if (Objects.requireNonNull(event.getUser()).isBot()) {
             return;
         }
 
-        if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId()) && event.getReactionEmote().getEmote().getId().equalsIgnoreCase(NoxLib.getInstance().getConfiguration().defaultTicketEmoteId))
-        {
+        if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId()) && event.getReactionEmote().getEmote().getId().equalsIgnoreCase(NoxLib.getInstance().getConfiguration().defaultTicketEmoteId)) {
             setMemberId(Objects.requireNonNull(event.getMember()).getId());
             NoxLib.getInstance().getTicketHandler().createNewTicket(Objects.requireNonNull(event.getMember()));
             event.getReaction().removeReaction(Objects.requireNonNull(event.getUser())).queue();
 
-            try
-            {
+            try {
                 int temp = event.getReaction().getCount();
-            }
-            catch (IllegalStateException ignored)
-            {
+            } catch (IllegalStateException ignored) {
                 Objects.requireNonNull(NoxLib.getInstance().getBotJda().getTextChannelById(event.getChannel().getId())).addReactionById(event.getMessageId(), Objects.requireNonNull(NoxLib.getInstance().getBotJda().getEmoteById(NoxLib.getInstance().getConfiguration().defaultTicketEmoteId))).queue();
             }
         }
     }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event)
-    {
-        if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId()))
-        {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        if (event.getChannel().getId().equalsIgnoreCase(NoxLib.getInstance().getTicketReactChannelId())) {
             event.getMessage().addReaction(Objects.requireNonNull(NoxLib.getInstance().getBotJda().getEmoteById(NoxLib.getInstance().getConfiguration().defaultTicketEmoteId))).queue();
         }
     }

@@ -1,12 +1,13 @@
 package me.noxiuam.noxlib.command;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import me.noxiuam.noxlib.command.util.CommandContext;
 import me.noxiuam.noxlib.services.Tier;
 
-@Getter @AllArgsConstructor
-public abstract class GenericCommand
-{
+@Getter
+@AllArgsConstructor
+public abstract class GenericCommand {
     private String name;
     private String description;
     private String usage;

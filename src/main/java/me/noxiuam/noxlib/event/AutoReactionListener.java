@@ -9,23 +9,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class AutoReactionListener extends ListenerAdapter
-{
+public class AutoReactionListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfiguration() == null)
-        {
+        if (event.getAuthor().isBot() || event.isWebhookMessage() || NoxLib.getInstance().getConfiguration() == null) {
             return;
         }
 
-        if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver")))
-        {
-            for (AutoReaction ar : NoxLib.getInstance().getAutoReactionHandler().getAutoReactions())
-            {
-                if (event.getMessage().getContentRaw().contains(ar.getTrigger()))
-                {
-                    for (String str : NoxLib.getInstance().getAutoReactionHandler().getAutoReaction(event.getMessage().getContentRaw()).getEmoteIds())
-                    {
+        if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) {
+            for (AutoReaction ar : NoxLib.getInstance().getAutoReactionHandler().getAutoReactions()) {
+                if (event.getMessage().getContentRaw().contains(ar.getTrigger())) {
+                    for (String str : NoxLib.getInstance().getAutoReactionHandler().getAutoReaction(event.getMessage().getContentRaw()).getEmoteIds()) {
                         event.getMessage().addReaction(Objects.requireNonNull(NoxLib.getInstance().getBotJda().getEmoteById(str))).queue();
                     }
                 }

@@ -71,21 +71,25 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>maven-snapshots</id>
-            <url>http://repo.goldenpvp.net/repository/maven-releases/</url>
-        </repository>
-        <repository>
-            <id>maven-releases</id>
-            <url>http://repo.goldenpvp.net/repository/maven-snapshots/</url>
-        </repository>
-        <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
             <url>https://jcenter.bintray.com</url>
         </repository>
+        <repository>
+            <id>javacord-repo</id>
+            <url>https://repo.bastian-oppermann.de</url>
+        </repository>
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.javacord</groupId>
+            <artifactId>javacord</artifactId>
+            <version>3.4.0</version>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer</artifactId>

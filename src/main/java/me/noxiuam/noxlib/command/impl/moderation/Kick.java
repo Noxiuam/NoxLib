@@ -9,38 +9,31 @@ import net.dv8tion.jda.api.entities.Member;
 
 import java.util.concurrent.TimeUnit;
 
-public class Kick extends GenericCommand
-{
+public class Kick extends GenericCommand {
 
-    public Kick()
-    {
+    public Kick() {
         super("kick", "Kicks a member.", NoxLib.getInstance().getPrefix() + "kick <user> <reason>", Tier.BRONZE);
     }
 
     @Override
-    public void execute(CommandContext ctx)
-    {
-        if (!ctx.getMember().hasPermission(Permission.KICK_MEMBERS))
-        {
+    public void execute(CommandContext ctx) {
+        if (!ctx.getMember().hasPermission(Permission.KICK_MEMBERS)) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Unable to kick member", "You do not have permission for this!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        if (ctx.getArgs().isEmpty())
-        {
+        if (ctx.getArgs().isEmpty()) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Unable to kick member", "You did not mention anyone to kick! - `" + this.getUsage() + "`", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
         Member user = ctx.getMessage().getMentionedMembers().get(0);
-        if (ctx.getArgs().size() > 2 || ctx.getArgs().isEmpty() || user == null)
-        {
+        if (ctx.getArgs().size() > 2 || ctx.getArgs().isEmpty() || user == null) {
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Unable to kick member", "You did not mention anyone to kick! - " + this.getUsage(), NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
         }
 
-        if (ctx.getArgs().size() == 1)
-        {
+        if (ctx.getArgs().size() == 1) {
             user.kick("No reason provided.").queue();
             ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Member Kicked", user.getAsMention() + " has been kicked!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
             return;
