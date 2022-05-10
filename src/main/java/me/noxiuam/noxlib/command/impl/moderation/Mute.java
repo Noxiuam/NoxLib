@@ -33,6 +33,7 @@ public class Mute extends GenericCommand {
             return;
         }
 
+        // temporary
         user.timeoutFor(5000L, TimeUnit.MINUTES).queue();
         ctx.getMessage().replyEmbeds(NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail("Member Muted", user.getAsMention() + " has been muted!", NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()).queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
     }
