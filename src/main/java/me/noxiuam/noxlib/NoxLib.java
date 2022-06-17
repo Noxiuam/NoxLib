@@ -2,6 +2,9 @@ package me.noxiuam.noxlib;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.noxiuam.noxlib.command.impl.Help;
+import me.noxiuam.noxlib.command.impl.fun.ImageToASCII;
+import me.noxiuam.noxlib.command.impl.fun.RandomImage;
 import me.noxiuam.noxlib.command.impl.fun.game.Game;
 import me.noxiuam.noxlib.command.impl.moderation.*;
 import me.noxiuam.noxlib.command.impl.music.*;
@@ -10,6 +13,7 @@ import me.noxiuam.noxlib.command.impl.ticket.CloseTicket;
 import me.noxiuam.noxlib.command.impl.ticket.RemoveUser;
 import me.noxiuam.noxlib.command.impl.utility.Announcement;
 import me.noxiuam.noxlib.command.util.CommandManager;
+import me.noxiuam.noxlib.command.util.ImageToASCIIConverter;
 import me.noxiuam.noxlib.config.Config;
 import me.noxiuam.noxlib.feature.AutoModerationHandler;
 import me.noxiuam.noxlib.feature.AutoReactionHandler;
@@ -63,6 +67,7 @@ public class NoxLib {
     public AutoReactionHandler autoReactionHandler;
 
     public GameFramework gameFramework;
+    public ImageToASCIIConverter asciiConverter;
 
     public NoxLib() {
         instance = this;
@@ -90,6 +95,7 @@ public class NoxLib {
             this.imageDatabase = new ImageDatabase();
             this.reactionRoleManager = new ReactionRoleManager();
             this.gameFramework = new GameFramework();
+            this.asciiConverter = new ImageToASCIIConverter();
         }
 
         this.threadUtil.createThread(new ConfigThread(), 5L);
@@ -99,7 +105,7 @@ public class NoxLib {
                 new CloseTicket(), new AddUser(), new RemoveUser(), new Kick(), new Ban(),
                 new Unban(), new Purge(), new Join(), new Play(), new Stop(), new Leave(),
                 new Skip(), new Loop(), new Queue(), new Game(), new Report(), new Announcement(),
-                new Mute()
+                new Mute(), new Help(), new MessageSearchUp(), new ImageToASCII(), new RandomImage()
         );
 
         System.err.println("[NoxLib] Loaded in " + (System.currentTimeMillis() - startTime) + "ms!");

@@ -13,6 +13,6 @@ public class RandomImage extends GenericCommand {
 
     @Override
     public void execute(CommandContext ctx) {
-        ctx.getMessage().reply(NoxLib.getInstance().getImageDatabase().getHelper().createRandomImage(256, 256), "image.png").queue();
+        ctx.getMessage().reply(NoxLib.getInstance().getImageDatabase().getHelper().createRandomImage(256, 256), "SPOILER_image.png").queue();
     }
 }

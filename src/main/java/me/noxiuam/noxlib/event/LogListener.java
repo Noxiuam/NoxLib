@@ -72,7 +72,7 @@ public class LogListener extends ListenerAdapter {
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Member Voice Change",
                         "**Member:** " + event.getMember().getAsMention() + "\n" +
-                                "**Channels:** " + event.getChannelLeft().getAsMention() + " **->** " + event.getChannelJoined().getAsMention() + "\n" +
+                                "**Channels:** " + event.getChannelLeft().getAsMention() + " **>** " + event.getChannelJoined().getAsMention() + "\n" +
                                 "**Timestamp:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();
@@ -115,7 +115,7 @@ public class LogListener extends ListenerAdapter {
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Member Name Changed",
                         "**Member:** " + event.getUser().getAsMention() +
-                                "\n**Change:** `" + event.getOldName() + "` **->** `" + event.getNewName() + "`"
+                                "\n**Change:** `" + event.getOldName() + "` **>** `" + event.getNewName() + "`"
                                 + "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();
@@ -130,7 +130,7 @@ public class LogListener extends ListenerAdapter {
                 NoxLib.getInstance().getMessageUtil().createEmbedWithThumbnail(
                         "Member Nickname Changed",
                         "**Member:** " + event.getUser().getAsMention() +
-                                "\n**Change:** `" + event.getOldNickname() + "` **->** `" + event.getNewNickname() + "`"
+                                "\n**Change:** `" + event.getOldNickname() + "` **>** `" + event.getNewNickname() + "`"
                                 + "\n**Time:** `" + NoxLib.getInstance().getTimeUtil().getCurrentTime("hh:mm a MM/dd/yyyy") + "`",
                         NoxLib.getInstance().getImageDatabase().getDefaultImage()).build()
         ).queue();

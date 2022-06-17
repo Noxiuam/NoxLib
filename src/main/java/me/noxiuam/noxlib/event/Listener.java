@@ -21,11 +21,10 @@ public class Listener extends ListenerAdapter {
         if (NoxLib.getInstance().getConfiguration().getBotTier().isAboveOrEqual(Tier.getByName("silver"))) {
             for (AutoReponseMessage msg : NoxLib.getInstance().getAutoResponseHandler().getAutoResponses()) {
                 if (msg.getTrigger().equalsIgnoreCase(event.getMessage().getContentRaw())) {
-                    event.getMessage().reply(NoxLib.getInstance().getAutoResponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
+                    event.getChannel().sendMessage(NoxLib.getInstance().getAutoResponseHandler().getAutoResponse(event.getMessage().getContentRaw()).getResponse()).queue();
                 }
             }
         }
-
 
         if (!event.getMessage().getAttachments().isEmpty()) {
             StringBuilder sb = new StringBuilder();
