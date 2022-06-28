@@ -2,6 +2,8 @@
 
 A Java library designed to aid in creating Discord bots.
 
+Full documentation is not complete yet, will likely transfer to a Wiki and a complete recode of the games framework is needed, it looks horrible.
+
 ## Features
 
 This lib includes almost everything you could possibly need for a bot.
