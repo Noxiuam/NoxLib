@@ -129,7 +129,7 @@ public class TestGame extends Game {
 
    @Override
    public void run(CommandContext ctx, Member member) {
-      // More game logic, only gets ran once after init().
+      // Game start logic, should always be ran at the end of init().
    }
 
    @Override
