@@ -1,6 +1,6 @@
 # NoxLib
 
-A Java library designed to aid in creating Discord bots.
+A Java library designed to aid in creating Discord bots not only easier but faster.
 
 Full documentation is not complete yet, will likely transfer to a Wiki and a complete recode of the games framework is needed, it looks like shit.
 
